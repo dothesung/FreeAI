@@ -1,0 +1,488 @@
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">    <link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="shortcut icon" href="/favicon.ico"><title>Chuyển văn bản thành giọng nói AI miễn phí</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><style>:root {--primary-color: #4F46E5;--primary-light: #6366F1;--primary-dark: #4338CA;--secondary-color: #8B5CF6;--light-bg: #F8FAFC;--border-color: #E2E8F0;--text-color: #1E293B;--text-light: #64748B;--success-color: #10B981;--error-color: #EF4444;--border-radius: 10px;--box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.1);--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);--gradient-primary: linear-gradient(135deg, #4F46E5, #7C3AED);--gradient-secondary: linear-gradient(135deg, #8B5CF6, #C084FC);--card-bg: #ffffff;--voice-alloy: #4F46E5;--voice-echo: #6366F1;--voice-fable: #8B5CF6;--voice-onyx: #333333;--voice-nova: #10B981;--voice-shimmer: #60A5FA;--voice-coral: #F87171;--voice-verse: #FBBF24;--voice-ballad: #A78BFA;--voice-ash: #4B5563;--voice-sage: #059669;--voice-amuch: #F59E0B;--voice-aster: #2563EB;--voice-brook: #3B82F6;--voice-clover: #EC4899;--voice-dan: #1F2937;--voice-elan: #7C3AED;--voice-marilyn: #DB2777;--voice-meadow: #34D399;}* {box-sizing: border-box;margin: 0;padding: 0;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}body {background-color: var(--light-bg);color: var(--text-color);line-height: 1.5;padding: 0;margin: 0;background-image:radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.03) 0%, transparent 600px),radial-gradient(circle at 20% 90%, rgba(79, 70, 229, 0.03) 0%, transparent 600px);}.container {max-width: 1400px;margin: 0 auto;padding: 1.5rem 1rem; /* Giảm khoảng đệm trên và dưới */ }header {padding: 1.5rem 0 2rem; /* Giảm khoảng đệm của tiêu đề */text-align: center;position: relative;}h1 {font-size: 2.6rem;font-weight: 800;margin-bottom: 0.75rem; /* Giảm khoảng cách dưới tiêu đề */background: var(--gradient-primary);-webkit-background-clip: text;-webkit-text-fill-color: transparent;display: inline-block;letter-spacing: -0.02em;}.description {font-size: 1.1rem;color: var(--text-light);max-width: 700px;margin: 0 auto;line-height: 1.6;}.content {display: flex;gap: 1.5rem; /* Giảm khoảng cách giữa hai cột */margin-top: 1.5rem; /* Giảm khoảng cách trên */position: relative;}.text-input-section, .audio-output-section {flex: 1;width: 50%;}.card {background-color: var(--card-bg);border-radius: var(--border-radius);box-shadow: var(--box-shadow);padding: 1.25rem; /* Giảm khoảng đệm bên trong thẻ */margin-bottom: 1.25rem; /* Giảm khoảng cách giữa các thẻ */transition: var(--transition);position: relative;overflow: hidden;border: 1px solid rgba(226, 232, 240, 0.6);backdrop-filter: blur(10px);height: auto; /* Xóa chiều cao cố định */}.card:hover {box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);transform: translateY(-2px);}.section-title {font-size: 1.25rem;font-weight: 600;margin-bottom: 1rem; /* Giảm khoảng cách dưới tiêu đề */color: var(--text-color);display: flex;align-items: center;}.section-title i {margin-right: 0.75rem;background: var(--gradient-primary);-webkit-background-clip: text;-webkit-text-fill-color: transparent;font-size: 1.1rem;}textarea {width: 100%;height: 180px; /* Giảm chiều cao của hộp văn bản */padding: 1rem;border: 1px solid var(--border-color);border-radius: var(--border-radius);resize: vertical;font-size: 1rem;margin-bottom: 0.5rem;transition: var(--transition);background-color: rgba(255, 255, 255, 0.8);box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);line-height: 1.6;}textarea:focus {outline: none;border-color: var(--primary-light);box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);background-color: white;}.text-stats {display: flex;align-items: center;margin-bottom: 1rem; /* Giảm khoảng cách dưới */font-size: 0.9rem;color: var(--text-light);}.text-stat {margin-right: 1.5rem;display: flex;align-items: center;}.text-stat i {margin-right: 0.4rem;color: var(--primary-light);}.btn {display: inline-flex;align-items: center;justify-content: center;background: var(--gradient-primary);color: white;border: none;padding: 0.75rem 1.25rem;height: 2.75rem; /* Giảm chiều cao nút */cursor: pointer;border-radius: var(--border-radius);font-size: 1rem;font-weight: 500;transition: var(--transition);box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);position: relative;overflow: hidden;}.btn::after {content: '';position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0));opacity: 0;transition: opacity 0.3s;}.btn:hover::after {opacity: 1;}.btn:active {transform: translateY(1px);box-shadow: 0 1px 3px rgba(79, 70, 229, 0.2);}.btn-success {background: linear-gradient(135deg, #10B981, #059669);box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);}.btn-text {background: none;color: var(--primary-color);padding: 0;height: auto;font-weight: 500;box-shadow: none;}.btn-text:hover {background: none;color: var(--primary-dark);text-decoration: underline;box-shadow: none;}.btn-text::after {display: none;}.btn i {margin-right: 0.5rem;}.btn-danger {background: linear-gradient(135deg, #EF4444, #DC2626);box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);}.btn-sm {padding: 0.4rem 0.8rem;height: 2.2rem;font-size: 0.9rem;}.select-wrapper {position: relative;margin-bottom: 1.25rem;}.select-icon {position: absolute;right: 1rem;top: 50%;transform: translateY(-50%);color: var(--text-light);pointer-events: none;}select {width: 100%;padding: 0.8rem 1rem;border: 1px solid var(--border-color);border-radius: var(--border-radius);font-size: 1rem;background-color: rgba(255, 255, 255, 0.8);appearance: none;transition: var(--transition);box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);cursor: pointer;}select:focus {outline: none;border-color: var(--primary-light);box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);background-color: white;}.voice-selection {margin-bottom: 1.25rem; /* Giảm khoảng cách dưới */}.voice-selection label {display: block;margin-bottom: 0.5rem; /* Giảm khoảng cách dưới */font-size: 0.95rem;color: var(--text-light);font-weight: 500;}.audio-preview {margin-bottom: 1.25rem; /* Giảm khoảng cách dưới */}.custom-audio-player {width: 100%;margin-top: 0.75rem; /* Giảm khoảng cách trên */border-radius: var(--border-radius);background: #F1F5F9;padding: 0.75rem; /* Giảm khoảng đệm bên trong */box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);}audio {width: 100%;height: 60px; /* Giảm chiều cao trình phát âm thanh */border-radius: 25px;}audio::-webkit-media-controls-panel {background: linear-gradient(135deg, #F1F5F9, #F8FAFC);}audio::-webkit-media-controls-play-button {background-color: var(--primary-light);border-radius: 50%;}.status {margin-top: 1rem; /* Giảm khoảng cách trên */padding: 0.75rem; /* Giảm khoảng đệm bên trong */border-radius: var(--border-radius);font-size: 0.95rem;display: none;animation: fadeInUp 0.4s ease;font-weight: 500;}@keyframes fadeInUp {from { opacity: 0; transform: translateY(10px); }to { opacity: 1; transform: translateY(0); }}.status.success {background-color: rgba(16, 185, 129, 0.1);color: #065F46;display: block;border-left: 3px solid var(--success-color);}.status.error {background-color: rgba(239, 68, 68, 0.1);color: #B91C1C;display: block;border-left: 3px solid var(--error-color);}.loading {display: none;align-items: center;margin: 1rem 0; /* Giảm khoảng cách trên và dưới */font-size: 0.95rem;color: var(--text-light);}.loading .spinner {display: inline-block;width: 1.25rem;height: 1.25rem;border: 2px solid rgba(79, 70, 229, 0.2);border-radius: 50%;border-top-color: var(--primary-color);animation: spin 1s linear infinite;margin-right: 0.6rem;}@keyframes spin {to { transform: rotate(360deg); }}.history-section {margin-top: 1.25rem; /* Giảm khoảng cách trên */}.history-header {display: flex;justify-content: space-between;align-items: center;margin-bottom: 0.75rem; /* Giảm khoảng cách dưới */}.history-warning {background-color: rgba(250, 204, 21, 0.1);border-left: 3px solid #FACC15;padding: 0.6rem 0.75rem; /* Giảm khoảng đệm bên trong */margin-bottom: 1rem; /* Giảm khoảng cách dưới */border-radius: var(--border-radius);font-size: 0.9rem;color: #854D0E;display: flex;align-items: center;}.history-warning i {margin-right: 0.5rem;color: #EAB308;}.history-container {max-height: 350px; /* Giảm chiều cao tối đa của lịch sử */overflow-y: auto;scrollbar-width: thin;scrollbar-color: var(--primary-light) #F1F5F9;}.history-container::-webkit-scrollbar {width: 6px;}.history-container::-webkit-scrollbar-track {background: #F1F5F9;border-radius: 10px;}.history-container::-webkit-scrollbar-thumb {background-color: var(--primary-light);border-radius: 10px;}.history-item {display: flex;align-items: center;justify-content: space-between;padding: 0.75rem 0.5rem; /* Giảm khoảng đệm bên trong */border-bottom: 1px solid var(--border-color);transition: var(--transition);border-radius: 0.5rem;}.history-item:hover {background-color: rgba(99, 102, 241, 0.04);}.history-item:last-child {border-bottom: none;}.history-info {flex: 1;min-width: 0;padding-right: 1rem;}.history-timestamp {font-size: 0.8rem;color: var(--text-light);margin-bottom: 0.3rem; /* Giảm khoảng cách dưới */}.history-voice {font-size: 0.95rem;font-weight: 600;display: flex;align-items: center;color: var(--primary-dark);margin-bottom: 0.2rem; /* Giảm khoảng cách dưới */}.history-voice::before {content: '';display: inline-block;width: 0.5rem;height: 0.5rem;background: var(--gradient-primary);border-radius: 50%;margin-right: 0.5rem;}.history-text {font-size: 0.9rem;color: var(--text-light);white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100%;}.no-history {color: var(--text-light);font-size: 0.95rem;text-align: center;padding: 1.5rem 0; /* Giảm khoảng đệm bên trong */}footer {text-align: center;padding: 2rem 0 1.5rem; /* Giảm khoảng đệm chân trang */color: var(--text-light);font-size: 0.9rem;opacity: 0.8;}footer i {color: var(--primary-light);}/* Thẻ tính năng */.features-card {margin-top: 1.5rem; /* Giảm khoảng cách trên */background: linear-gradient(180deg, #FFFFFF, #F8FAFC);border-radius: var(--border-radius);padding: 1.25rem; /* Giảm khoảng đệm bên trong */box-shadow: var(--box-shadow);border: 1px solid var(--border-color);}.features-title {font-size: 1.1rem;font-weight: 600;margin-bottom: 0.75rem; /* Giảm khoảng cách dưới */color: var(--text-color);text-align: center;}.features-list {list-style-type: none;padding: 0;margin: 0;}.feature-item {display: flex;align-items: flex-start;margin-bottom: 0.6rem; /* Giảm khoảng cách dưới */padding-bottom: 0.6rem; /* Giảm khoảng đệm dưới bên trong */border-bottom: 1px solid var(--border-color);}.feature-item:last-child {margin-bottom: 0;padding-bottom: 0;border-bottom: none;}.feature-icon {flex-shrink: 0;width: 24px;height: 24px;background: var(--gradient-primary);border-radius: 50%;display: flex;align-items: center;justify-content: center;margin-right: 0.8rem;margin-top: 0.2rem;}.feature-icon i {font-size: 0.8rem;color: white;}.feature-text {font-size: 0.95rem;color: var(--text-color);line-height: 1.5;}/* Hoạt ảnh */@keyframes pulse {0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }}@keyframes highlight {0% { background-color: rgba(99, 102, 241, 0.1); }100% { background-color: transparent; }}.history-item.new {animation: highlight 2s ease;}/* Chỉ báo nâng cao */.badge {display: inline-flex;align-items: center;padding: 0.25rem 0.6rem;border-radius: 20px;font-size: 0.8rem;font-weight: 600;margin-left: 0.5rem;background: var(--gradient-secondary);color: white;opacity: 0.9;}/* Tối ưu hóa nút chọn kiểu giọng nói */.voice-style-selector {display: grid;grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Giảm chiều rộng tối thiểu */gap: 0.4rem; /* Giảm khoảng cách */margin-bottom: 1.25rem; /* Giảm khoảng cách dưới */}.voice-style-option {min-width: 0;}.voice-style-option input[type="radio"] {display: none;}.voice-style-option label {display: flex;flex-direction: column;align-items: center;padding: 0.5rem 0.3rem; /* Giảm khoảng đệm bên trong */border: 2px solid var(--border-color);border-radius: var(--border-radius);cursor: pointer;transition: all 0.2s ease;background: white;text-align: center;font-size: 0.85rem;height: 100%;}.voice-style-option input[type="radio"]:checked + label {border-color: var(--primary-color);background: rgba(99, 102, 241, 0.05);box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);}.voice-style-icon {font-size: 1rem;margin-bottom: 0.2rem; /* Giảm khoảng cách dưới */}.voice-style-name {font-weight: 600;font-size: 0.8rem;margin-bottom: 0.2rem;line-height: 1.2;}.voice-style-desc {font-size: 0.7rem;color: var(--text-light);line-height: 1.1;}/* Tối ưu hóa bảng xem trước */.preview-container {background: linear-gradient(135deg, #f9fafb, #f3f4f6);border-radius: 15px;padding: 1.5rem; /* Giảm khoảng đệm bên trong */box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);margin-bottom: 1.25rem; /* Giảm khoảng cách dưới */position: relative;overflow: hidden;min-height: 250px; /* Giảm chiều cao tối thiểu */display: flex;flex-direction: column;}.preview-header {display: flex;align-items: center;margin-bottom: 1.25rem; /* Giảm khoảng cách dưới */}.preview-title {font-size: 1.2rem;font-weight: 600;margin: 0;display: flex;align-items: center;}.preview-title i {margin-right: 0.75rem;font-size: 1.4rem;background: var(--gradient-primary);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}.preview-icon {position: absolute;right: -15px;top: -15px;width: 80px; /* Giảm kích thước */height: 80px; /* Giảm kích thước */opacity: 0.05;transform: rotate(15deg);color: var(--primary-color);}.preview-placeholder {display: flex;flex-direction: column;align-items: center;justify-content: center;flex: 1;color: var(--text-light);border: 2px dashed #e5e7eb;border-radius: 10px;font-size: 0.95rem;}.preview-placeholder i {margin-bottom: 0.75rem; /* Giảm khoảng cách dưới */font-size: 2.2rem; /* Giảm kích thước biểu tượng */opacity: 0.5;}/* Tối ưu hóa kiểu gợi ý phím tắt */.shortcut-hint {display: inline-flex;align-items: center;margin-left: 0.75rem; /* Giảm lề trái */font-size: 0.8rem;color: var(--text-light);vertical-align: middle;}.shortcut-hint kbd {background: #F1F5F9;padding: 0.1rem 0.3rem;border-radius: 3px;border: 1px solid #E2E8F0;margin: 0 0.2rem;font-family: monospace;}/* Tối ưu hóa khu vực mẹo sử dụng */.usage-tips {background: linear-gradient(to right, #faf5ff, #f5f3ff);border-radius: var(--border-radius);padding: 1rem; /* Giảm khoảng đệm bên trong */margin-top: 1.25rem; /* Giảm khoảng cách trên */}.tips-title {font-size: 1rem;font-weight: 600;margin-bottom: 0.6rem; /* Giảm khoảng cách dưới */display: flex;align-items: center;}.tips-title i {margin-right: 0.5rem;color: var(--secondary-color);}.tips-list {list-style: none;padding: 0;margin: 0;}.tips-list li {display: flex;align-items: baseline;margin-bottom: 0.4rem; /* Giảm khoảng cách dưới */font-size: 0.9rem;}.tips-list li:before {content: "•";color: var(--secondary-color);font-weight: bold;margin-right: 0.5rem;}.current-voice-info {display: flex;align-items: center;margin-bottom: 0.75rem; /* Giảm khoảng cách dưới */background: rgba(255, 255, 255, 0.7);padding: 0.6rem 0.75rem; /* Giảm khoảng đệm bên trong */border-radius: 8px;}.current-voice-icon {width: 36px; /* Giảm kích thước biểu tượng */height: 36px; /* Giảm kích thước biểu tượng */border-radius: 50%;display: flex;align-items: center;justify-content: center;margin-right: 0.6rem; /* Giảm lề phải */color: white;}.current-voice-details {flex: 1;}.current-voice-name {font-weight: 600;font-size: 1rem;margin-bottom: 0.1rem; /* Giảm khoảng cách dưới */}.current-voice-desc {font-size: 0.8rem;color: var(--text-light);}.divider {height: 1px;background: var(--border-color);margin: 1.25rem 0; /* Giảm khoảng cách trên và dưới */}.input-section-title {font-size: 1.1rem;font-weight: 600;margin-bottom: 0.75rem; /* Giảm khoảng cách dưới */display: flex;align-items: center;}.input-section-title i {margin-right: 0.5rem;color: var(--primary-color);}/* Thiết kế đáp ứng */@media (max-width: 1024px) {.content {flex-direction: column;}.text-input-section, .audio-output-section {width: 100%;}}@media (max-width: 768px) {.container {padding: 1rem 0.8rem;}h1 {font-size: 2rem;}.description {font-size: 1rem;padding: 0 1rem;}.card {padding: 1rem; /* Tiếp tục giảm khoảng đệm bên trong trên thiết bị di động */}.section-title {font-size: 1.1rem;margin-bottom: 0.75rem;}textarea {height: 160px; /* Tiếp tục giảm chiều cao hộp văn bản trên thiết bị di động */}}</style></head><body><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="container"><header>
+<style>h1 {    font-family: 'Orbitron', sans-serif;    font-size: 2.8em;    text-align: center;    margin: 30px 0;    color: transparent;    background: linear-gradient(45deg, #00f3ff 30%, #a855f7 70%);    -webkit-background-clip: text;    background-clip: text;    text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);    position: relative;    padding: 20px;    letter-spacing: 2px;}
+h1::before,h1::after {    content: '';    position: absolute;    width: 0;    height: 2px;    background: linear-gradient(90deg, transparent, #3d3dff);    animation: borderExpand 1.5s ease-out forwards;}
+h1::before {    top: 0;    left: 0;}
+h1::after {    bottom: 0;    right: 0;    animation-delay: 0.5s;}
+@keyframes borderExpand {    to {        width: 100%;    }}</style>
+
+<h1>Chuyển văn bản thành giọng nói AI miễn phí</h1><p class="description">Nhập văn bản, chọn kiểu giọng nói, và chuyển đổi văn bản thành giọng nói tự nhiên chỉ với một cú nhấp chuột.<br>Hỗ trợ nhiều đặc điểm giọng nói để giúp bạn tạo nội dung âm thanh chuyên nghiệp.</p>
+<br>
+<style>.sci-fi-btn {    position: relative;    padding: 4px 8px;    font-family: 'Arial', sans-serif;    font-size: 1em;    letter-spacing: 2px;    text-transform: uppercase;    color: #00f3ff;    background: #0a0a2e;    border: 2px solid #3d3dff;    border-radius: 8px;    cursor: pointer;    overflow: hidden;    transition: 0.5s;    text-shadow: 0 0 10px #00f3ff;    box-shadow: 0 0 20px rgba(61, 61, 255, 0.3);}
+.sci-fi-btn:hover {    background: #13134e;    box-shadow: 0 0 30px rgba(61, 61, 255, 0.6);    transform: scale(1.05);    color: #ffffff;}
+
+
+.sci-fi-btn:hover::before {    left: 100%;}
+
+
+.glowing-border:nth-child(1) {    top: -2px;    left: -2px;    right: -2px;    height: 2px;    background: linear-gradient(90deg, transparent, #3d3dff);    animation: borderTop 2s linear infinite;}
+@keyframes borderTop {    0% { left: -2px; }    100% { left: 100%; }}
+/* Thêm hoạt ảnh khi nhấp */.sci-fi-btn:active {    transform: scale(0.45);    transition: 0.1s;}
+</style>
+<a href="index.html" class="sci-fi-btn" style="text-decoration: none;">    <!-- Thêm viền phát sáng -->    <span class="glowing-border"></span>    <span class="glowing-border"></span>    Quay lại trang chủ</a>
+
+
+
+</header><div class="content"><section class="text-input-section"><div class="card"><h2 class="section-title"><i class="fas fa-microphone-alt"></i>Tạo giọng nói</h2><!-- Chọn kiểu giọng nói --><div class="input-section-title"><i class="fas fa-sliders"></i>Chọn kiểu giọng nói</div><p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-light);">Mỗi kiểu giọng nói có âm sắc và biểu cảm độc đáo, hãy chọn giọng nói phù hợp nhất với nội dung của bạn</p><div class="voice-style-selector"><div class="voice-style-option"><input type="radio" id="voice-alloy" name="voiceStyle" value="alloy" checked><label for="voice-alloy"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-alloy);"></i></span><span class="voice-style-name">Alloy</span><span class="voice-style-desc">Cân bằng, trung tính</span></label></div><div class="voice-style-option"><input type="radio" id="voice-echo" name="voiceStyle" value="echo"><label for="voice-echo"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-echo);"></i></span><span class="voice-style-name">Echo</span><span class="voice-style-desc">Sâu lắng, mạnh mẽ</span></label></div><div class="voice-style-option"><input type="radio" id="voice-fable" name="voiceStyle" value="fable"><label for="voice-fable"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-fable);"></i></span><span class="voice-style-name">Fable</span><span class="voice-style-desc">Ấm áp, kể chuyện</span></label></div><div class="voice-style-option"><input type="radio" id="voice-onyx" name="voiceStyle" value="onyx"><label for="voice-onyx"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-onyx);"></i></span><span class="voice-style-name">Onyx</span><span class="voice-style-desc">Trang trọng, uy nghiêm</span></label></div><div class="voice-style-option"><input type="radio" id="voice-nova" name="voiceStyle" value="nova"><label for="voice-nova"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-nova);"></i></span><span class="voice-style-name">Nova</span><span class="voice-style-desc">Thân thiện, chuyên nghiệp</span></label></div><div class="voice-style-option"><input type="radio" id="voice-shimmer" name="voiceStyle" value="shimmer"><label for="voice-shimmer"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-shimmer);"></i></span><span class="voice-style-name">Shimmer</span><span class="voice-style-desc">Nhẹ nhàng, trong trẻo</span></label></div><div class="voice-style-option"><input type="radio" id="voice-coral" name="voiceStyle" value="coral"><label for="voice-coral"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-coral);"></i></span><span class="voice-style-name">Coral</span><span class="voice-style-desc">Dịu dàng, bình tĩnh</span></label></div><div class="voice-style-option"><input type="radio" id="voice-verse" name="voiceStyle" value="verse"><label for="voice-verse"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-verse);"></i></span><span class="voice-style-name">Verse</span><span class="voice-style-desc">Sống động, trữ tình</span></label></div><div class="voice-style-option"><input type="radio" id="voice-ballad" name="voiceStyle" value="ballad"><label for="voice-ballad"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-ballad);"></i></span><span class="voice-style-name">Ballad</span><span class="voice-style-desc">Trữ tình, nhẹ nhàng</span></label></div><div class="voice-style-option"><input type="radio" id="voice-ash" name="voiceStyle" value="ash"><label for="voice-ash"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-ash);"></i></span><span class="voice-style-name">Ash</span><span class="voice-style-desc">Trầm tư, ổn định</span></label></div><div class="voice-style-option"><input type="radio" id="voice-sage" name="voiceStyle" value="sage"><label for="voice-sage"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-sage);"></i></span><span class="voice-style-name">Sage</span><span class="voice-style-desc">Thông thái, kinh nghiệm</span></label></div><div class="voice-style-option"><input type="radio" id="voice-amuch" name="voiceStyle" value="amuch"><label for="voice-amuch"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-amuch);"></i></span><span class="voice-style-name">Amuch</span><span class="voice-style-desc">Đầy đặn, tự nhiên</span></label></div><div class="voice-style-option"><input type="radio" id="voice-aster" name="voiceStyle" value="aster"><label for="voice-aster"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-aster);"></i></span><span class="voice-style-name">Aster</span><span class="voice-style-desc">Rõ ràng, trực tiếp</span></label></div><div class="voice-style-option"><input type="radio" id="voice-brook" name="voiceStyle" value="brook"><label for="voice-brook"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-brook);"></i></span><span class="voice-style-name">Brook</span><span class="voice-style-desc">Mượt mà, dễ chịu</span></label></div><div class="voice-style-option"><input type="radio" id="voice-clover" name="voiceStyle" value="clover"><label for="voice-clover"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-clover);"></i></span><span class="voice-style-name">Clover</span><span class="voice-style-desc">Sôi nổi, trẻ trung</span></label></div><div class="voice-style-option"><input type="radio" id="voice-dan" name="voiceStyle" value="dan"><label for="voice-dan"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-dan);"></i></span><span class="voice-style-name">Dan</span><span class="voice-style-desc">Giọng nam trầm ổn</span></label></div><div class="voice-style-option"><input type="radio" id="voice-elan" name="voiceStyle" value="elan"><label for="voice-elan"><span class="voice-style-icon"><i class="fas fa-microphone" style="color: var(--voice-elan);"></i></span><span class="voice-style-name">Elan</span><span class="voice-style-desc">Thanh lịch, trôi chảy</span></label></div></div><div class="divider"></div><!-- Nhập văn bản --><div class="input-section-title"><i class="fas fa-pen-fancy"></i>Nhập văn bản</div><textarea id="textInput" placeholder="Sử dụng phản hồi AI để tạo cuộc hội thoại. Để AI đọc theo văn bản, bạn có thể thêm: 'Vui lòng đọc theo văn bản này' trước văn bản."></textarea><div class="text-stats"><div class="text-stat"><i class="fas fa-text-height"></i><span id="charCount">Số ký tự: 0</span></div><div class="text-stat"><i class="fas fa-clock"></i><span id="durationEstimate">Thời lượng ước tính: 0 giây</span></div></div><div style="display: flex; align-items: center;"><button id="generateBtn" class="btn"><i class="fas fa-waveform-voice"></i><span id="generateBtnText">Tạo giọng nói</span><span id="generateBtnSpinner" class="spinner" style="display: none; margin-left: 8px;"></span></button><div class="shortcut-hint">Phím tắt: <kbd>Ctrl</kbd> + <kbd>Enter</kbd></div></div></div><div class="usage-tips"><div class="tips-title"><i class="fas fa-lightbulb"></i>Mẹo sử dụng</div><ul class="tips-list"><li>Nhập dấu câu để tăng sự tự nhiên trong ngắt nghỉ và ngữ điệu của giọng nói</li><li>Các kiểu giọng nói khác nhau phù hợp với các ngữ cảnh khác nhau, hãy thử nhiều kiểu để tìm ra kiểu phù hợp nhất</li><li>Văn bản dài có thể chia thành nhiều đoạn nhỏ, sau đó tạo và ghép lại để có hiệu quả tốt hơn</li><li>Các thuật ngữ chuyên ngành có thể cần thêm chú thích ngữ âm hoặc thay thế bằng các từ phổ biến hơn</li></ul></div></section><section class="audio-output-section"><div class="card"><div class="preview-container"><div class="preview-icon"><i class="fas fa-headphones-alt fa-5x"></i></div><div class="preview-header"><h3 class="preview-title"><i class="fas fa-play-circle"></i>Xem trước âm thanh</h3></div><div id="currentVoiceContainer" style="display: none;" class="current-voice-info"><div class="current-voice-icon" id="currentVoiceIcon"><i class="fas fa-microphone"></i></div><div class="current-voice-details"><div class="current-voice-name" id="currentVoiceName"></div><div class="current-voice-desc" id="currentVoiceDesc"></div></div></div><div id="audioContainer" style="flex: 1; display: flex; flex-direction: column; justify-content: center;"><div class="preview-placeholder" id="noAudioMessage"><i class="fas fa-music"></i><span>Chưa có âm thanh được tạo</span></div></div></div><div id="downloadContainer" style="display: none;"><button id="downloadBtn" class="btn btn-success"><i class="fas fa-download"></i>Tải xuống tệp âm thanh</button></div><div class="loading" id="loadingIndicator"><span class="spinner"></span> Đang tạo giọng nói...</div><div id="statusMessage" class="status"></div></div><div class="card history-section"><div class="history-header"><h2 class="section-title"><i class="fas fa-history"></i>Lịch sử <span class="badge">10 mục gần đây</span></h2><button id="clearHistoryBtn" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>Xóa lịch sử</button></div><div class="history-warning"><i class="fas fa-exclamation-triangle"></i>Liên kết bản ghi được đặt lại sau khi làm mới, vui lòng tải xuống</div><div class="history-container" id="historyContainer"><div id="historyList"><p class="no-history">Chưa có lịch sử</p></div></div></div><div class="features-card"><h3 class="features-title">Tính năng giọng nói</h3><ul class="features-list"><li class="feature-item"><div class="feature-icon"><i class="fas fa-volume-high"></i></div><div class="feature-text">Tổng hợp giọng nói tự nhiên, mượt mà, gần giống giọng người thật</div></li><li class="feature-item"><div class="feature-icon"><i class="fas fa-users"></i></div><div class="feature-text">Nhiều kiểu giọng nói để lựa chọn, đáp ứng các nhu cầu khác nhau</div></li><li class="feature-item"><div class="feature-icon"><i class="fas fa-align-left"></i></div><div class="feature-text">Hỗ trợ chuyển đổi văn bản dài, phù hợp cho nhiều loại nội dung</div></li><li class="feature-item"><div class="feature-icon"><i class="fas fa-download"></i></div><div class="feature-text">Tải xuống tệp âm thanh định dạng MP3 chỉ với một cú nhấp chuột, có thể chia sẻ trên nhiều nền tảng</div></li><li class="feature-item"><div class="feature-icon"><i class="fas fa-history"></i></div><div class="feature-text">Lưu lịch sử cục bộ, tiện lợi cho việc sử dụng lại và so sánh</div></li></ul></div></section></div><footer><p>© 2025 <a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;">Vipo.Top</a>  | Dựa trên AI | <i class="fas fa-sparkles"></i><a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;">Mời quản trị viên một ly cà phê</a>  </p></footer></div>
+<style>
+    /* Modal styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        text-align: center;
+    }
+
+    .modal-buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .modal-buttons button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+    }
+
+    .modal-buttons .confirm-btn {
+        background-color: var(--error-color);
+        color: white;
+    }
+
+    .modal-buttons .confirm-btn:hover {
+        background-color: #DC2626;
+    }
+
+    .modal-buttons .cancel-btn {
+        background-color: #ccc;
+        color: var(--text-color);
+    }
+
+    .modal-buttons .cancel-btn:hover {
+        background-color: #bbb;
+    }
+</style>
+<div id="confirmationModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <p id="modalMessage"></p>
+        <div class="modal-buttons">
+            <button class="confirm-btn" id="modalConfirmBtn">Xác nhận</button>
+            <button class="cancel-btn" id="modalCancelBtn">Hủy</button>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const textInput = document.getElementById('textInput');
+        // Removed voiceSelect as it's not used with radio buttons
+        const generateBtn = document.getElementById('generateBtn');
+        const generateBtnText = document.getElementById('generateBtnText');
+        const generateBtnSpinner = document.getElementById('generateBtnSpinner');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const audioContainer = document.getElementById('audioContainer');
+        const noAudioMessage = document.getElementById('noAudioMessage');
+        const downloadContainer = document.getElementById('downloadContainer');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const statusMessage = document.getElementById('statusMessage');
+        const historyList = document.getElementById('historyList');
+        const charCount = document.getElementById('charCount');
+        const durationEstimate = document.getElementById('durationEstimate');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+        const currentVoiceContainer = document.getElementById('currentVoiceContainer');
+        const currentVoiceIcon = document.getElementById('currentVoiceIcon');
+        const currentVoiceName = document.getElementById('currentVoiceName');
+        const currentVoiceDesc = document.getElementById('currentVoiceDesc');
+
+        // Modal elements
+        const confirmationModal = document.getElementById('confirmationModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+        const modalCancelBtn = document.getElementById('modalCancelBtn');
+
+        const MAX_HISTORY_ITEMS = 10; // Giới hạn lịch sử 10 mục
+        const CHARS_PER_MINUTE = 150; // Tốc độ nói ước tính
+
+        const voiceDescriptions = {
+            'alloy': 'Cân bằng, trung tính',
+            'echo': 'Sâu lắng, mạnh mẽ',
+            'fable': 'Ấm áp, kể chuyện',
+            'onyx': 'Trang trọng, uy nghiêm',
+            'nova': 'Thân thiện, chuyên nghiệp',
+            'shimmer': 'Nhẹ nhàng, trong trẻo',
+            'coral': 'Dịu dàng, bình tĩnh',
+            'verse': 'Sống động, trữ tình',
+            'ballad': 'Trữ tình, nhẹ nhàng',
+            'ash': 'Trầm tư, ổn định',
+            'sage': 'Thông thái, kinh nghiệm',
+            'amuch': 'Đầy đặn, tự nhiên',
+            'aster': 'Rõ ràng, trực tiếp',
+            'brook': 'Mượt mà, dễ chịu',
+            'clover': 'Sôi nổi, trẻ trung',
+            'dan': 'Giọng nam trầm ổn',
+            'elan': 'Thanh lịch, trôi chảy',
+            'marilyn': 'Mềm mại, tròn trịa',
+            'meadow': 'Bình yên, tự nhiên'
+        };
+        const voiceColors = {
+            'alloy': '#4F46E5',
+            'echo': '#6366F1',
+            'fable': '#8B5CF6',
+            'onyx': '#333333',
+            'nova': '#10B981',
+            'shimmer': '#60A5FA',
+            'coral': '#F87171',
+            'verse': '#FBBF24',
+            'ballad': '#A78BFA',
+            'ash': '#4B5563',
+            'sage': '#059669',
+            'amuch': '#F59E0B',
+            'aster': '#2563EB',
+            'brook': '#3B82F6',
+            'clover': '#EC4899',
+            'dan': '#1F2937',
+            'elan': '#7C3AED',
+            'marilyn': '#DB2777',
+            'meadow': '#34D399'
+        };
+
+        let audioBlob = null;
+        let history = [];
+
+        // Đồng bộ hóa các nút radio và chọn thả xuống (voiceSelect không còn tồn tại)
+        const voiceStyleOptions = document.querySelectorAll('.voice-style-option input[type="radio"]');
+        voiceStyleOptions.forEach(option => {
+            option.addEventListener('change', function() {
+                // No need to sync with voiceSelect as it's removed
+            });
+        });
+
+        // Load history from localStorage
+        loadHistory();
+
+        // Update character count and duration estimate as user types
+        textInput.addEventListener('input', updateTextStats);
+
+        function updateTextStats() {
+            const text = textInput.value.trim();
+            const count = text.length;
+            // Cập nhật số ký tự
+            charCount.textContent = `Số ký tự: ${count}`;
+            // Tính toán và cập nhật thời lượng ước tính
+            const durationMinutes = count / CHARS_PER_MINUTE;
+            let durationText;
+            if (durationMinutes < 1 / 60) {
+                durationText = 'dưới 1 giây';
+            } else if (durationMinutes < 1) {
+                const seconds = Math.round(durationMinutes * 60);
+                durationText = `${seconds} giây`;
+            } else {
+                const minutes = Math.floor(durationMinutes);
+                const seconds = Math.round((durationMinutes - minutes) * 60);
+                if (seconds === 0) {
+                    durationText = `${minutes} phút`;
+                } else {
+                    durationText = `${minutes} phút ${seconds} giây`;
+                }
+            }
+            durationEstimate.textContent = `Thời lượng ước tính: ${durationText}`
+        }
+
+        // Hàm cập nhật hiển thị giọng nói hiện tại
+        function updateCurrentVoiceDisplay(voice) {
+            const voiceName = voice.charAt(0).toUpperCase() + voice.slice(1);
+            const voiceDesc = voiceDescriptions[voice] || '';
+            const voiceColor = voiceColors[voice] || '#4F46E5';
+            currentVoiceName.textContent = voiceName;
+            currentVoiceDesc.textContent = voiceDesc;
+            currentVoiceIcon.style.backgroundColor = voiceColor;
+            currentVoiceContainer.style.display = 'flex';
+        }
+
+        // Hàm tạo âm thanh từ văn bản
+        async function generateAudio() {
+            const text = textInput.value.trim();
+            const selectedVoiceElement = document.querySelector('.voice-style-option input[type="radio"]:checked');
+            const voice = selectedVoiceElement ? selectedVoiceElement.value : 'alloy'; // Default to 'alloy' if nothing is selected
+            if (!text) {
+                showStatus('Vui lòng nhập nội dung văn bản', 'error');
+                return;
+            }
+            // Hiển thị chỉ báo tải
+            loadingIndicator.style.display = 'flex';
+            generateBtnText.textContent = "Đang tạo...";
+            generateBtnSpinner.style.display = 'inline-block';
+            generateBtn.disabled = true;
+            // Ẩn bất kỳ thông báo trạng thái trước đó
+            statusMessage.style.display = 'none';
+            try {
+                // Tạo URL với văn bản đã mã hóa và giọng nói đã chọn
+                const url = `https://text.pollinations.ai/${encodeURIComponent(text)}?model=openai-audio&voice=${voice}`;
+                // Lấy tệp âm thanh
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Lỗi: ${response.status} ${response.statusText}`);
+                }
+                // Lấy blob âm thanh
+                audioBlob = await response.blob();
+                // Tạo URL cho blob
+                const audioUrl = URL.createObjectURL(audioBlob);
+                // Tạo phần tử âm thanh
+                if (document.getElementById('audioElement')) {
+                    document.getElementById('audioElement').remove();
+                }
+                const audioElement = document.createElement('audio');
+                audioElement.id = 'audioElement';
+                audioElement.controls = true;
+                audioElement.src = audioUrl;
+                audioElement.className = 'custom-audio';
+                // Tạo vùng chứa trình phát tùy chỉnh
+                const customPlayerDiv = document.createElement('div');
+                customPlayerDiv.className = 'custom-audio-player';
+                customPlayerDiv.appendChild(audioElement);
+                // Thay thế thông báo không có âm thanh bằng phần tử âm thanh
+                if (noAudioMessage) {
+                    noAudioMessage.style.display = 'none';
+                }
+                audioContainer.innerHTML = ''; // Xóa vùng chứa xem trước
+                audioContainer.appendChild(customPlayerDiv);
+                // Hiển thị nút tải xuống
+                downloadContainer.style.display = 'block';
+                // Cập nhật hiển thị giọng nói hiện tại
+                updateCurrentVoiceDisplay(voice);
+                // Lấy văn bản xem trước (20 ký tự đầu tiên)
+                const previewText = text.substring(0, 20) + (text.length > 20 ? '...' : '');
+                // Thêm vào lịch sử
+                const timestamp = new Date();
+                const historyItem = {
+                    id: Date.now(),
+                    timestamp: timestamp,
+                    voice: voice,
+                    text: text,
+                    previewText: previewText,
+                    blob: audioBlob
+                };
+                // Thêm mục mới vào đầu và giới hạn 10 mục
+                history.unshift(historyItem);
+                if (history.length > MAX_HISTORY_ITEMS) {
+                    history = history.slice(0, MAX_HISTORY_ITEMS);
+                }
+                saveHistory();
+                updateHistoryUI(historyItem.id); // Truyền ID mục mới để làm nổi bật nó
+                showStatus('Tạo giọng nói thành công!', 'success');
+                // Tự động phát âm thanh
+                audioElement.play();
+            } catch (error) {
+                console.error('Lỗi khi tạo âm thanh:', error);
+                showStatus(`Lỗi khi tạo giọng nói: ${error.message}`, 'error');
+            } finally {
+                // Ẩn chỉ báo tải
+                loadingIndicator.style.display = 'none';
+                generateBtnText.textContent = "Tạo giọng nói";
+                generateBtnSpinner.style.display = 'none';
+                generateBtn.disabled = false;
+            }
+        }
+
+        // Hàm tải xuống âm thanh đã tạo
+        function downloadAudio(blob, filename) {
+            if (!blob) {
+                showStatus('Không có âm thanh để tải xuống', 'error');
+                return;
+            }
+            const downloadUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = filename || `audio_${new Date().getTime()}.mp3`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(downloadUrl);
+        }
+
+        // Hàm tải xuống mục lịch sử
+        function downloadHistoryItem(id) {
+            const item = history.find(h => h.id === id);
+            if (item) {
+                const sanitizedText = item.previewText.replace(/[^\w\u4e00-\u9fa5]/g, '');
+                const fileName = `${item.voice}_${sanitizedText}.mp3`;
+                downloadAudio(item.blob, fileName);
+            }
+        }
+
+        // Hàm cập nhật giao diện người dùng lịch sử
+        function updateHistoryUI(newItemId) {
+            if (history.length === 0) {
+                historyList.innerHTML = '<p class="no-history">Chưa có lịch sử</p>';
+                return;
+            }
+            historyList.innerHTML = '';
+            // Chỉ hiển thị 10 mục gần đây nhất
+            history.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                if (item.id === newItemId) {
+                    historyItem.classList.add('new');
+                }
+                // Định dạng dấu thời gian
+                const date = item.timestamp;
+                const formattedDate = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+                historyItem.innerHTML = `
+                    <div class="history-info">
+                        <div class="history-timestamp">${formattedDate}</div>
+                        <div class="history-voice">${item.voice}</div>
+                        <div class="history-text">${item.previewText}</div>
+                    </div>
+                    <button class="btn btn-text history-download" data-id="${item.id}">
+                        <i class="fas fa-download"></i> Tải xuống
+                    </button>
+                `;
+                historyList.appendChild(historyItem);
+            });
+            // Thêm trình nghe sự kiện vào các nút tải xuống
+            document.querySelectorAll('.history-download').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.getAttribute('data-id'), 10);
+                    downloadHistoryItem(id);
+                });
+            });
+        }
+
+        // Hàm hiển thị modal xác nhận tùy chỉnh
+        function showConfirmationModal(message, onConfirm) {
+            modalMessage.textContent = message;
+            confirmationModal.style.display = 'flex';
+
+            const handleConfirm = () => {
+                onConfirm(true);
+                confirmationModal.style.display = 'none';
+                modalConfirmBtn.removeEventListener('click', handleConfirm);
+                modalCancelBtn.removeEventListener('click', handleCancel);
+            };
+
+            const handleCancel = () => {
+                onConfirm(false);
+                confirmationModal.style.display = 'none';
+                modalConfirmBtn.removeEventListener('click', handleConfirm);
+                modalCancelBtn.removeEventListener('click', handleCancel);
+            };
+
+            modalConfirmBtn.addEventListener('click', handleConfirm);
+            modalCancelBtn.addEventListener('click', handleCancel);
+        }
+
+        // Hàm xóa tất cả lịch sử
+        function clearHistory() {
+            showConfirmationModal('Bạn có chắc chắn muốn xóa tất cả lịch sử? Thao tác này không thể hoàn tác.', (confirmed) => {
+                if (confirmed) {
+                    history = [];
+                    localStorage.removeItem('audioGeneratorHistory');
+                    updateHistoryUI();
+                    showStatus('Lịch sử đã được xóa', 'success');
+                }
+            });
+        }
+
+        // Hàm lưu lịch sử vào localStorage
+        function saveHistory() {
+            // Chúng ta không thể lưu blobs trong localStorage, vì vậy chúng ta sẽ lưu thông tin khác và giữ blobs trong bộ nhớ
+            const historyData = history.map(item => ({
+                id: item.id,
+                timestamp: item.timestamp.toISOString(),
+                voice: item.voice,
+                text: item.text,
+                previewText: item.previewText
+            }));
+            try {
+                localStorage.setItem('audioGeneratorHistory', JSON.stringify(historyData));
+            } catch (e) {
+                console.error('Lỗi khi lưu lịch sử vào localStorage:', e);
+            }
+        }
+
+        // Hàm tải lịch sử từ localStorage
+        function loadHistory() {
+            try {
+                const historyData = localStorage.getItem('audioGeneratorHistory');
+                if (historyData) {
+                    const parsedHistory = JSON.parse(historyData);
+                    history = parsedHistory.map(item => ({
+                        ...item,
+                        timestamp: new Date(item.timestamp),
+                        blob: null // Chúng ta không lưu blobs trong localStorage
+                    }));
+                    // Giới hạn MAX_HISTORY_ITEMS
+                    if (history.length > MAX_HISTORY_ITEMS) {
+                        history = history.slice(0, MAX_HISTORY_ITEMS);
+                    }
+                    updateHistoryUI();
+                }
+            } catch (e) {
+                console.error('Lỗi khi tải lịch sử từ localStorage:', e);
+            }
+        }
+
+        // Hàm hiển thị thông báo trạng thái
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+            statusMessage.style.display = 'block';
+            // Ẩn trạng thái sau 5 giây
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Trình nghe sự kiện
+        generateBtn.addEventListener('click', generateAudio);
+        downloadBtn.addEventListener('click', () => {
+            if (audioBlob) {
+                const text = textInput.value.trim();
+                const selectedVoiceElement = document.querySelector('.voice-style-option input[type="radio"]:checked');
+                const voice = selectedVoiceElement ? selectedVoiceElement.value : 'alloy'; // Default to 'alloy'
+                const previewText = text.substring(0, 20).replace(/[^\w\u4e00-\u9fa5]/g, '');
+                const fileName = `${voice}_${previewText}.mp3`;
+                downloadAudio(audioBlob, fileName);
+            }
+        });
+
+        // Thêm phím tắt (Ctrl+Enter) để tạo âm thanh
+        textInput.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                generateAudio();
+            }
+        });
+
+        // Nút xóa lịch sử
+        clearHistoryBtn.addEventListener('click', clearHistory);
+
+        // Khởi tạo thống kê văn bản
+        updateTextStats();
+    });
+</script>
+</body>
+</html>

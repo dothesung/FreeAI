@@ -127,6 +127,11 @@
             transition: all 0.3s ease;
         }
 
+        input:disabled {
+            background-color: rgba(26, 38, 52, 0.4);
+            cursor: not-allowed;
+        }
+
         input[type="text"]:focus,
         input[type="number"]:focus,
         textarea:focus,
@@ -311,61 +316,12 @@
             background-color: var(--success-color);
         }
 
-        .glow-effect {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
-            opacity: 0.1;
-            filter: blur(20px);
-            animation: float 8s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(30px, -30px);
-            }
-        }
-
-        .model-info {
-            margin-top: 10px;
-            font-size: 0.85rem;
-            color: rgba(228, 241, 254, 0.6);
-        }
-
-        .parameter-tips {
+        .model-info, .parameter-tips {
             font-size: 0.85rem;
             color: rgba(228, 241, 254, 0.6);
             margin-top: 5px;
         }
-
-        /* Trang trí công nghệ cao */
-        .tech-decoration {
-            position: absolute;
-            font-family: monospace;
-            color: rgba(0, 228, 255, 0.2);
-            pointer-events: none;
-            user-select: none;
-            z-index: -1;
-        }
-
-        .tech-decoration.top-left {
-            top: 20px;
-            left: 20px;
-            font-size: 0.8rem;
-        }
-
-        .tech-decoration.bottom-right {
-            bottom: 20px;
-            right: 20px;
-            font-size: 0.8rem;
-            text-align: right;
-        }
-
+        
         /* Lịch sử */
         .history-panel {
             margin-top: 30px;
@@ -373,33 +329,18 @@
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
         }
-
-        .history-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-color), var(--primary-color), var(--accent-color));
-        }
-
         .history-title {
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .history-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
         }
-
         .history-item {
             background-color: rgba(26, 38, 52, 0.8);
             border-radius: 10px;
@@ -408,34 +349,28 @@
             cursor: pointer;
             position: relative;
         }
-
         .history-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
         .history-item img {
             width: 100%;
             aspect-ratio: 1/1;
             object-fit: cover;
         }
-
         .history-item-info {
             padding: 10px;
             font-size: 0.8rem;
         }
-
         .history-item-prompt {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             margin-bottom: 5px;
         }
-
         .history-item-model {
             color: var(--accent-color);
         }
-
         .empty-history {
             text-align: center;
             padding: 30px;
@@ -447,113 +382,31 @@
             .container {
                 padding: 10px;
             }
-
             h1 {
                 font-size: 1.8rem;
             }
-
             .main-content {
                 gap: 20px;
             }
-
             .control-panel,
             .preview-panel,
             .history-panel {
                 padding: 15px;
             }
-
             .button-group {
                 flex-direction: column;
             }
-
             .history-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
-        }
-
-        /* Ẩn thanh cuộn cho tất cả các phần tử */
-        ::-webkit-scrollbar {
-            display: none; /* Chrome, Safari và Opera */
-        }
-
-        /* Firefox */
-        .no-scrollbar {
-            scrollbar-width: none; /* Firefox */
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none; /* Chrome, Safari và Opera */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        
-
         <header>
             <h1>Trình tạo hình ảnh AI miễn phí</h1>
-            <p class="subtitle">Hệ thống tạo hình ảnh nâng cao dựa trên AI</p><br><br>
-
-            <style>
-                .sci-fi-btn {
-                    position: relative;
-                    padding: 4px 8px;
-                    font-family: 'Arial', sans-serif;
-                    font-size: 1em;
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    color: #00f3ff;
-                    background: #0a0a2e;
-                    border: 2px solid #3d3dff;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    overflow: hidden;
-                    transition: 0.5s;
-                    text-shadow: 0 0 10px #00f3ff;
-                    box-shadow: 0 0 20px rgba(61, 61, 255, 0.3);
-                }
-
-                .sci-fi-btn:hover {
-                    background: #13134e;
-                    box-shadow: 0 0 30px rgba(61, 61, 255, 0.6);
-                    transform: scale(1.05);
-                    color: #ffffff;
-                }
-
-                .sci-fi-btn:hover::before {
-                    left: 100%;
-                }
-
-                .glowing-border:nth-child(1) {
-                    top: -2px;
-                    left: -2px;
-                    right: -2px;
-                    height: 2px;
-                    background: linear-gradient(90deg, transparent, #3d3dff);
-                    animation: borderTop 2s linear infinite;
-                }
-
-                @keyframes borderTop {
-                    0% {
-                        left: -2px;
-                    }
-                    100% {
-                        left: 100%;
-                    }
-                }
-
-                /* Thêm hiệu ứng click */
-                .sci-fi-btn:active {
-                    transform: scale(0.45);
-                    transition: 0.1s;
-                }
-            </style>
-            <a href="index.html" class="sci-fi-btn" style="text-decoration: none;">
-                <!-- Thêm viền phát sáng -->
-                <span class="glowing-border"></span>
-                <span class="glowing-border"></span>
-                Quay lại trang chủ
-            </a>
+            <p class="subtitle">Hệ thống tạo hình ảnh nâng cao dựa trên AI</p>
         </header>
 
         <div class="main-content">
@@ -561,13 +414,13 @@
                 <div class="form-group">
                     <label for="prompt">Lời nhắc (Prompt)</label>
                     <textarea id="prompt" placeholder="Mô tả nội dung hình ảnh bạn muốn tạo..."></textarea>
-                    <div class="parameter-tips">Gợi ý: Sử dụng mô tả chi tiết, cụ thể để có kết quả tốt hơn. Hãy thử mô tả phong cách, cảnh vật, màu sắc, v.v.</div>
+                    <div class="parameter-tips">Gợi ý: Sử dụng mô tả chi tiết, cụ thể để có kết quả tốt hơn.</div>
                 </div>
 
                 <div class="form-group">
                     <label for="negative-prompt">Lời nhắc phủ định (Negative Prompt)</label>
-                    <input type="text" id="negative-prompt" placeholder="Mô tả nội dung bạn không muốn xuất hiện trong hình ảnh..." value="worst quality, blurry">
-                    <div class="parameter-tips">Gợi ý: Dùng để loại bỏ các yếu tố không mong muốn, như "mờ, chất lượng thấp", v.v.</div>
+                    <input type="text" id="negative-prompt" placeholder="Nội dung không muốn xuất hiện..." value="worst quality, blurry">
+                    <div class="parameter-tips">Gợi ý: Dùng để loại bỏ các yếu tố không mong muốn.</div>
                 </div>
 
                 <div class="form-group">
@@ -581,21 +434,35 @@
                         <option value="Flux-cablyai">Flux-cablyai (Phong cách đặc biệt)</option>
                         <option value="turbo">Turbo (Tạo nhanh)</option>
                     </select>
-                    <div class="model-info" id="model-info">Flux: Mô hình đa năng, phù hợp với hầu hết các cảnh</div>
+                    <div class="model-info" id="model-info"></div>
                 </div>
+
+                <!-- === START: KHỐI TỶ LỆ KHUNG HÌNH MỚI === -->
+                <div class="form-group">
+                    <label for="aspect-ratio">Tỷ lệ khung hình (Aspect Ratio)</label>
+                    <select id="aspect-ratio">
+                        <option value="16:9" selected>16:9 (Ngang)</option>
+                        <option value="9:16">9:16 (Dọc)</option>
+                        <option value="1:1">1:1 (Vuông)</option>
+                        <option value="4:3">4:3 (Cổ điển)</option>
+                        <option value="3:4">3:4 (Dọc cổ điển)</option>
+                        <option value="custom">Tùy chỉnh</option>
+                    </select>
+                </div>
+                <!-- === END: KHỐI TỶ LỆ KHUNG HÌNH MỚI === -->
 
                 <div class="form-group">
                     <div class="form-row" style="display: flex; gap: 15px;">
                         <div style="flex: 1;">
                             <label for="width">Chiều rộng</label>
-                            <input type="number" id="width" min="64" max="1920" step="8" value="1280">
+                            <input type="number" id="width" min="64" max="2048" step="8" value="1344">
                         </div>
                         <div style="flex: 1;">
                             <label for="height">Chiều cao</label>
-                            <input type="number" id="height" min="64" max="1920" step="8" value="720">
+                            <input type="number" id="height" min="64" max="2048" step="8" value="768">
                         </div>
                     </div>
-                    <div class="parameter-tips">Gợi ý: Nên sử dụng bội số của 8, kích thước tối đa phụ thuộc vào giới hạn của mô hình.</div>
+                    <div class="parameter-tips">Nên sử dụng bội số của 8. Sẽ bị vô hiệu hóa khi chọn tỷ lệ có sẵn.</div>
                 </div>
 
                 <div class="form-group">
@@ -604,7 +471,7 @@
                         <input type="number" id="seed" min="-1" max="2147483647" value="-1" style="flex: 1;">
                         <button id="random-seed" style="padding: 12px 15px;">Ngẫu nhiên</button>
                     </div>
-                    <div class="parameter-tips">Gợi ý: Sử dụng cùng một giá trị hạt giống có thể tạo ra hình ảnh tương tự, -1 có nghĩa là hạt giống ngẫu nhiên.</div>
+                    <div class="parameter-tips">-1 có nghĩa là ngẫu nhiên.</div>
                 </div>
 
                 <div class="form-group">
@@ -614,7 +481,7 @@
                     </div>
                     <div class="checkbox-group">
                         <input type="checkbox" id="safe" checked>
-                        <label for="safe" style="display: inline;">Chế độ an toàn (Lọc nội dung không phù hợp)</label>
+                        <label for="safe" style="display: inline;">Chế độ an toàn</label>
                     </div>
                 </div>
 
@@ -655,7 +522,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="history-panel">
             <div class="history-title">
                 <h3>Lịch sử</h3>
@@ -671,22 +538,6 @@
         </div>
     </div>
 
-    <p style="text-align: center; padding: 2px 0; color: inherit; font-family: 'Arial', sans-serif; font-size: 12px; line-height: 1.6; margin-top: 3px;">
-        <span style="display: inline-block; position: relative; vertical-align: middle;">
-            © 2025 <a href="https://Vipo.top" target="_blank" style="text-decoration: none; color: inherit; transition: color 0.3s ease;">Vipo.Top</a>
-        </span>
-        |
-        <span style="display: inline-block; position: relative; vertical-align: middle;">
-            <i class="fas fa-brain" style="margin-right: 5px;"></i> Dựa trên AI
-        </span>
-        |
-        <span style="display: inline-block; position: relative; vertical-align: middle;">
-            <a href="https://Vipo.top" target="_blank" style="text-decoration: none; color: inherit; transition: color 0.3s ease;">
-                <i class="fas fa-coffee" style="margin-right: 5px;"></i> Mời quản trị viên uống cà phê
-            </a>
-        </span>
-    </p>
-
     <div class="notification" id="notification"></div>
 
     <script>
@@ -696,6 +547,7 @@
             const negativePromptInput = document.getElementById('negative-prompt');
             const modelSelect = document.getElementById('model');
             const modelInfo = document.getElementById('model-info');
+            const aspectRatioSelect = document.getElementById('aspect-ratio'); // Mới
             const widthInput = document.getElementById('width');
             const heightInput = document.getElementById('height');
             const seedInput = document.getElementById('seed');
@@ -717,39 +569,89 @@
             const clearHistoryBtn = document.getElementById('clear-history-btn');
             const notification = document.getElementById('notification');
 
-            // Thông tin mô hình
             const modelDescriptions = {
                 'flux': 'Flux: Mô hình đa năng, phù hợp với hầu hết các cảnh',
-                'FLUX-3D': 'FLUX-3D: Mô hình được tối ưu hóa đặc biệt cho phong cách render 3D',
-                'FLUX-PRO': 'FLUX-PRO: Mô hình cao cấp cung cấp chất lượng chuyên nghiệp',
-                'Flux-realism': 'Flux-realism: Tập trung vào việc tạo hình ảnh theo phong cách hiện thực',
-                'Flux-anime': 'Flux-anime: Tối ưu hóa để tạo hình ảnh theo phong cách anime',
-                'Flux-cablyai': 'Flux-cablyai: Mô hình với phong cách nghệ thuật đặc biệt',
-                'turbo': 'Turbo: Mô hình tạo nhanh, ưu tiên tốc độ'
+                'FLUX-3D': 'FLUX-3D: Tối ưu cho phong cách render 3D',
+                'FLUX-PRO': 'FLUX-PRO: Cung cấp chất lượng chuyên nghiệp',
+                'Flux-realism': 'Flux-realism: Tập trung vào phong cách hiện thực',
+                'Flux-anime': 'Flux-anime: Tối ưu cho phong cách anime',
+                'Flux-cablyai': 'Flux-cablyai: Phong cách nghệ thuật đặc biệt',
+                'turbo': 'Turbo: Ưu tiên tốc độ, tạo nhanh'
             };
 
-            // Cập nhật thông tin mô hình
-            modelSelect.addEventListener('change', function() {
-                modelInfo.textContent = modelDescriptions[this.value] || '';
+            modelSelect.addEventListener('change', () => {
+                modelInfo.textContent = modelDescriptions[modelSelect.value] || '';
             });
 
-            // Nút hạt giống ngẫu nhiên
-            randomSeedBtn.addEventListener('click', function() {
+            randomSeedBtn.addEventListener('click', () => {
                 seedInput.value = Math.floor(Math.random() * 2147483647);
             });
 
-            // Nút xóa
-            clearBtn.addEventListener('click', function() {
+            clearBtn.addEventListener('click', () => {
                 promptInput.value = '';
                 negativePromptInput.value = 'worst quality, blurry';
                 seedInput.value = -1;
+                aspectRatioSelect.value = '16:9';
+                updateDimensionsFromRatio(); // Reset kích thước
                 previewImage.style.display = 'none';
                 placeholderText.style.display = 'block';
                 imageInfo.style.display = 'none';
                 imageActions.style.display = 'none';
             });
+            
+            // === START: LOGIC TỶ LỆ KHUNG HÌNH MỚI ===
+            function updateDimensionsFromRatio() {
+                const ratio = aspectRatioSelect.value;
 
-            // Tạo hình ảnh
+                if (ratio === 'custom') {
+                    widthInput.disabled = false;
+                    heightInput.disabled = false;
+                    return;
+                }
+
+                widthInput.disabled = true;
+                heightInput.disabled = true;
+
+                // Tổng số pixel mục tiêu, tương tự các kích thước phổ biến
+                const TARGET_PIXELS = 1024 * 1024;
+                let width, height;
+
+                switch (ratio) {
+                    case '1:1':
+                        width = 1024;
+                        height = 1024;
+                        break;
+                    case '16:9':
+                        width = Math.sqrt(TARGET_PIXELS * (16 / 9));
+                        height = width * (9 / 16);
+                        break;
+                    case '9:16': // Tỷ lệ mới bạn yêu cầu
+                        height = Math.sqrt(TARGET_PIXELS * (16 / 9));
+                        width = height * (9 / 16);
+                        break;
+                    case '4:3':
+                        width = Math.sqrt(TARGET_PIXELS * (4 / 3));
+                        height = width * (3 / 4);
+                        break;
+                    case '3:4':
+                        height = Math.sqrt(TARGET_PIXELS * (4 / 3));
+                        width = height * (3 / 4);
+                        break;
+                    default:
+                        width = 1024;
+                        height = 1024;
+                }
+                
+                // Làm tròn đến bội số của 8 gần nhất để tương thích tốt
+                const roundTo8 = (dim) => Math.max(64, Math.round(dim / 8) * 8);
+
+                widthInput.value = roundTo8(width);
+                heightInput.value = roundTo8(height);
+            }
+
+            aspectRatioSelect.addEventListener('change', updateDimensionsFromRatio);
+            // === END: LOGIC TỶ LỆ KHUNG HÌNH MỚI ===
+
             generateBtn.addEventListener('click', async function() {
                 const prompt = promptInput.value.trim();
                 if (!prompt) {
@@ -757,14 +659,12 @@
                     return;
                 }
 
-                // Hiển thị trạng thái tải
                 loadingIndicator.style.display = 'flex';
                 placeholderText.style.display = 'none';
                 previewImage.style.display = 'none';
                 imageInfo.style.display = 'none';
                 imageActions.style.display = 'none';
 
-                // Xây dựng tham số
                 const params = {
                     prompt: prompt,
                     model: modelSelect.value,
@@ -777,47 +677,35 @@
                 };
 
                 try {
-                    // Xây dựng URL
                     let url = `https://image.pollinations.ai/prompt/${encodeURIComponent(params.prompt)}`;
-                    url += `?width=${params.width}&height=${params.height}&seed=${params.seed}&model=${params.model}`;
+                    const urlParams = new URLSearchParams({
+                        width: params.width,
+                        height: params.height,
+                        seed: params.seed,
+                        model: params.model,
+                        nologo: params.nologo,
+                        safe: params.safe
+                    });
                     if (params.negative_prompt) {
-                        url += `&negative_prompt=${encodeURIComponent(params.negative_prompt)}`;
+                        urlParams.append('negative_prompt', params.negative_prompt);
                     }
-                    if (params.nologo) {
-                        url += '&nologo=true';
-                    }
-                    if (!params.safe) {
-                        url += '&safe=false';
-                    }
+                    url += `?${urlParams.toString()}`;
 
-                    // Tải hình ảnh
                     previewImage.onload = function() {
                         loadingIndicator.style.display = 'none';
                         previewImage.style.display = 'block';
                         imageInfo.style.display = 'block';
                         imageActions.style.display = 'flex';
 
-                        // Hiển thị thông tin hình ảnh
-                        const details = {
-                            prompt: params.prompt,
-                            model: params.model,
-                            dimensions: `${params.width}x${params.height}`,
-                            seed: params.seed,
-                            negative_prompt: params.negative_prompt || 'Không có',
-                            generated_at: new Date().toLocaleString()
-                        };
+                        const details = { ...params, generated_at: new Date().toLocaleString() };
                         imageDetails.textContent = JSON.stringify(details, null, 2);
-
-                        // Thêm vào lịch sử
-                        addToHistory(url, details);
+                        addToHistory(this.src, details);
                     };
-
                     previewImage.onerror = function() {
                         loadingIndicator.style.display = 'none';
                         placeholderText.style.display = 'block';
-                        showNotification('Tạo hình ảnh thất bại, vui lòng thử lại', 'error');
+                        showNotification('Tạo ảnh thất bại. API có thể quá tải.', 'error');
                     };
-
                     previewImage.src = url;
                 } catch (error) {
                     loadingIndicator.style.display = 'none';
@@ -826,170 +714,118 @@
                 }
             });
 
-            // Tải hình ảnh
             downloadBtn.addEventListener('click', function() {
                 if (previewImage.src) {
-                    // Mở trực tiếp hình ảnh trong tab mới
                     window.open(previewImage.src, '_blank');
-                    showNotification('Hình ảnh đã mở trong cửa sổ mới', 'success');
+                    showNotification('Hình ảnh đã mở trong tab mới.', 'success');
                 }
             });
 
-            // Sao chép lời nhắc
             copyPromptBtn.addEventListener('click', function() {
-                navigator.clipboard.writeText(promptInput.value)
-                    .then(() => showNotification('Lời nhắc đã được sao chép vào khay nhớ tạm', 'success'))
-                    .catch(err => showNotification('Sao chép thất bại: ' + err, 'error'));
+                const detailsText = imageDetails.textContent;
+                try {
+                    const details = JSON.parse(detailsText);
+                    navigator.clipboard.writeText(details.prompt)
+                        .then(() => showNotification('Lời nhắc đã được sao chép!', 'success'))
+                        .catch(err => showNotification('Sao chép thất bại: ' + err, 'error'));
+                } catch (e) {
+                    showNotification('Không có thông tin chi tiết để sao chép.', 'error');
+                }
             });
 
-            // Hiển thị thông báo
             function showNotification(message, type) {
                 notification.textContent = message;
                 notification.className = 'notification ' + type;
                 notification.classList.add('show');
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 3000);
+                setTimeout(() => notification.classList.remove('show'), 3000);
             }
 
-            // Thêm vào lịch sử
+            // --- Quản lý lịch sử ---
+            let history = [];
+
             function addToHistory(imageUrl, details) {
-                // Kiểm tra xem URL hình ảnh này đã tồn tại trong lịch sử chưa để tránh trùng lặp
-                const existingItems = historyContainer.querySelectorAll('.history-item');
-                for (let i = 0; i < existingItems.length; i++) {
-                    const img = existingItems[i].querySelector('img');
-                    if (img.src === imageUrl) {
-                        // Di chuyển mục này lên đầu thay vì tạo bản sao
-                        historyContainer.insertBefore(existingItems[i], historyContainer.firstChild);
-                        saveHistory();
-                        return; // Thoát khỏi hàm sớm - không cần tạo mục mới
-                    }
+                // Xóa mục trùng lặp nếu có
+                history = history.filter(item => item.imageUrl !== imageUrl);
+                
+                // Thêm mục mới vào đầu
+                history.unshift({ imageUrl, details });
+
+                // Giới hạn lịch sử ở 20 mục
+                if (history.length > 20) {
+                    history.pop();
                 }
 
-                // Nếu đến đây, đây là một mục mới cần thêm
-                // Ẩn lời nhắc lịch sử trống
-                emptyHistory.style.display = 'none';
-
-                // Tạo mục lịch sử
-                const historyItem = document.createElement('div');
-                historyItem.className = 'history-item';
-                historyItem.innerHTML = `
-                    <img src="${imageUrl}" alt="Hình ảnh AI được tạo">
-                    <div class="history-item-info">
-                        <div class="history-item-prompt">${details.prompt}</div>
-                        <div class="history-item-model">${details.model}</div>
-                    </div>
-                `;
-
-                // Xử lý sự kiện click cho mục lịch sử
-                historyItem.addEventListener('click', function() {
-                    previewImage.src = imageUrl;
-                    previewImage.style.display = 'block';
-                    placeholderText.style.display = 'none';
-                    imageInfo.style.display = 'block';
-                    imageActions.style.display = 'flex';
-                    imageDetails.textContent = JSON.stringify(details, null, 2);
-
-                    // Điền vào biểu mẫu
-                    promptInput.value = details.prompt;
-                    modelSelect.value = details.model;
-                    modelInfo.textContent = modelDescriptions[details.model] || '';
-                    const dimensions = details.dimensions.split('x');
-                    widthInput.value = dimensions[0];
-                    heightInput.value = dimensions[1];
-                    seedInput.value = details.seed;
-                    if (details.negative_prompt && details.negative_prompt !== 'Không có') {
-                        negativePromptInput.value = details.negative_prompt;
-                    }
-                });
-
-                // Thêm vào container ở đầu
-                historyContainer.insertBefore(historyItem, historyContainer.firstChild);
-
-                // Lưu vào bộ nhớ cục bộ
+                renderHistory();
                 saveHistory();
             }
 
-            // Lưu lịch sử vào bộ nhớ cục bộ
-            function saveHistory() {
-                const historyItems = historyContainer.querySelectorAll('.history-item');
-                const history = [];
-                // Giới hạn số lượng lịch sử
-                const maxHistory = 20;
-                for (let i = 0; i < Math.min(historyItems.length, maxHistory); i++) {
-                    const item = historyItems[i];
-                    const img = item.querySelector('img');
-                    const prompt = item.querySelector('.history-item-prompt').textContent;
-                    const model = item.querySelector('.history-item-model').textContent;
-                    history.push({
-                        imageUrl: img.src,
-                        details: {
-                            prompt: prompt,
-                            model: model,
-                            dimensions: `${widthInput.value}x${heightInput.value}`, // Cập nhật kích thước từ input hiện tại
-                            seed: seedInput.value, // Cập nhật seed từ input hiện tại
-                            negative_prompt: negativePromptInput.value, // Cập nhật negative prompt từ input hiện tại
-                            generated_at: new Date().toLocaleString()
-                        }
-                    });
+            function renderHistory() {
+                historyContainer.innerHTML = '';
+                if (history.length === 0) {
+                    historyContainer.innerHTML = '<div class="empty-history" id="empty-history">Lịch sử sáng tạo của bạn sẽ hiển thị ở đây</div>';
+                    return;
                 }
+
+                history.forEach(item => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    historyItem.innerHTML = `
+                        <img src="${item.imageUrl}" alt="Hình ảnh AI được tạo" loading="lazy">
+                        <div class="history-item-info">
+                            <div class="history-item-prompt" title="${item.details.prompt}">${item.details.prompt}</div>
+                            <div class="history-item-model">${item.details.model}</div>
+                        </div>
+                    `;
+
+                    historyItem.addEventListener('click', function() {
+                        previewImage.src = item.imageUrl;
+                        previewImage.style.display = 'block';
+                        placeholderText.style.display = 'none';
+                        imageInfo.style.display = 'block';
+                        imageActions.style.display = 'flex';
+                        imageDetails.textContent = JSON.stringify(item.details, null, 2);
+
+                        // Điền lại thông tin vào form
+                        promptInput.value = item.details.prompt;
+                        negativePromptInput.value = item.details.negative_prompt || 'worst quality, blurry';
+                        modelSelect.value = item.details.model;
+                        seedInput.value = item.details.seed;
+                        
+                        // Xác định tỷ lệ hoặc đặt là tùy chỉnh
+                        const w = parseInt(item.details.width);
+                        const h = parseInt(item.details.height);
+                        const ratio = Object.keys(aspectRatios).find(key => {
+                            const dims = aspectRatios[key];
+                            return dims && dims.width === w && dims.height === h;
+                        });
+
+                        if (ratio) {
+                           aspectRatioSelect.value = ratio;
+                        } else {
+                           aspectRatioSelect.value = 'custom';
+                        }
+                        widthInput.value = w;
+                        heightInput.value = h;
+                        updateDimensionsFromRatio(); // Cập nhật trạng thái disabled
+                    });
+                    historyContainer.appendChild(historyItem);
+                });
+            }
+
+            function saveHistory() {
                 localStorage.setItem('aiDrawingHistory', JSON.stringify(history));
             }
 
-            // Tải lịch sử
             function loadHistory() {
-                const history = JSON.parse(localStorage.getItem('aiDrawingHistory') || '[]');
-                if (history.length > 0) {
-                    emptyHistory.style.display = 'none';
-                    history.forEach(item => {
-                        const historyItem = document.createElement('div');
-                        historyItem.className = 'history-item';
-                        historyItem.innerHTML = `
-                            <img src="${item.imageUrl}" alt="Hình ảnh AI được tạo">
-                            <div class="history-item-info">
-                                <div class="history-item-prompt">${item.details.prompt}</div>
-                                <div class="history-item-model">${item.details.model}</div>
-                            </div>
-                        `;
-
-                        // Nhấp vào mục lịch sử để tải hình ảnh
-                        historyItem.addEventListener('click', function() {
-                            previewImage.src = item.imageUrl;
-                            previewImage.style.display = 'block';
-                            placeholderText.style.display = 'none';
-                            imageInfo.style.display = 'block';
-                            imageActions.style.display = 'flex';
-                            imageDetails.textContent = JSON.stringify(item.details, null, 2);
-
-                            // Điền vào biểu mẫu
-                            promptInput.value = item.details.prompt;
-                            modelSelect.value = item.details.model;
-                            modelInfo.textContent = modelDescriptions[item.details.model] || '';
-                            if (item.details.dimensions) {
-                                const dimensions = item.details.dimensions.split('x');
-                                widthInput.value = dimensions[0];
-                                heightInput.value = dimensions[1];
-                            }
-                            if (item.details.seed) {
-                                seedInput.value = item.details.seed;
-                            }
-                            if (item.details.negative_prompt && item.details.negative_prompt !== 'Không có') {
-                                negativePromptInput.value = item.details.negative_prompt;
-                            }
-                        });
-                        historyContainer.appendChild(historyItem);
-                    });
-                }
+                history = JSON.parse(localStorage.getItem('aiDrawingHistory') || '[]');
+                renderHistory();
             }
 
-            // Xóa lịch sử
             clearHistoryBtn.addEventListener('click', function() {
-                // Thay thế confirm() bằng modal tùy chỉnh nếu cần
-                if (window.confirm('Bạn có chắc chắn muốn xóa tất cả lịch sử không? Thao tác này không thể hoàn tác.')) {
-                    historyContainer.innerHTML = '';
-                    historyContainer.appendChild(emptyHistory);
-                    emptyHistory.style.display = 'block';
-                    localStorage.removeItem('aiDrawingHistory');
+                if (confirm('Bạn có chắc chắn muốn xóa tất cả lịch sử không?')) {
+                    history = [];
+                    renderHistory();
+                    saveHistory();
                     showNotification('Lịch sử đã được xóa', 'success');
                 }
             });
@@ -997,51 +833,13 @@
             // Khởi tạo
             loadHistory();
             modelInfo.textContent = modelDescriptions[modelSelect.value];
+            updateDimensionsFromRatio(); // Gọi lần đầu để thiết lập kích thước ban đầu
 
-            // Thêm phím tắt bàn phím
-            document.addEventListener('keydown', function(e) {
-                // Ctrl+Enter tạo hình ảnh
+            document.addEventListener('keydown', (e) => {
                 if (e.ctrlKey && e.key === 'Enter') {
                     generateBtn.click();
                 }
             });
-
-            // Thêm hiệu ứng động công nghệ cao
-            const glowEffects = document.querySelectorAll('.glow-effect');
-            glowEffects.forEach(effect => {
-                setInterval(() => {
-                    const x = Math.random() * 80;
-                    const y = Math.random() * 80;
-                    effect.style.transform = `translate(${x}%, ${y}%)`;
-                }, 5000);
-            });
-
-            // Lấy danh sách các mô hình có sẵn (chức năng tùy chọn)
-            async function fetchAvailableModels() {
-                try {
-                    const response = await fetch('https://image.pollinations.ai/models');
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data && data.models && Array.isArray(data.models)) {
-                            // Cập nhật danh sách thả xuống chọn mô hình
-                            modelSelect.innerHTML = '';
-                            data.models.forEach(model => {
-                                const option = document.createElement('option');
-                                option.value = model;
-                                option.textContent = model;
-                                modelSelect.appendChild(option);
-                            });
-                            // Cập nhật thông tin mô hình
-                            modelInfo.textContent = modelDescriptions[modelSelect.value] || `${modelSelect.value}: Mô hình có sẵn`;
-                        }
-                    }
-                } catch (error) {
-                    console.error('Không thể lấy danh sách mô hình:', error);
-                }
-            }
-
-            // Tùy chọn: Bỏ ghi chú để bật tự động lấy danh sách mô hình
-            // fetchAvailableModels();
         });
     </script>
 </body>

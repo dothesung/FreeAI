@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <title>Chuyển đổi âm thanh thành văn bản AI miễn phí</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --primary-light: #6366F1;
+            --primary-dark: #4338CA;
+            --secondary-color: #8B5CF6;
+            --light-bg: #F8FAFC;
+            --border-color: #E2E8F0;
+            --text-color: #1E293B;
+            --text-light: #64748B;
+            --success-color: #10B981;
+            --error-color: #EF4444;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #4F46E5, #7C3AED);
+            --gradient-secondary: linear-gradient(135deg, #8B5CF6, #C084FC);
+            --card-bg: #ffffff;
+            --voice-alloy: #4F46E5;
+            --voice-echo: #6366F1;
+            --voice-fable: #8B5CF6;
+            --voice-onyx: #333333;
+            --voice-nova: #10B981;
+            --voice-shimmer: #60A5FA;
+            --voice-coral: #F87171;
+            --voice-verse: #FBBF24;
+            --voice-ballad: #A78BFA;
+            --voice-ash: #4B5563;
+            --voice-sage: #059669;
+            --voice-amuch: #F59E0B;
+            --voice-aster: #2563EB;
+            --voice-brook: #3B82F6;
+            --voice-clover: #EC4899;
+            --voice-dan: #1F2937;
+            --voice-elan: #7C3AED;
+            --voice-marilyn: #DB2777;
+            --voice-meadow: #34D399;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            background-image: radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.03) 0%, transparent 600px), radial-gradient(circle at 20% 90%, rgba(79, 70, 229, 0.03) 0%, transparent 600px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        header {
+            padding: 1.5rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            letter-spacing: -0.02em;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .content {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        .input-section,
+        .output-section {
+            flex: 1;
+            width: 50%;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            backdrop-filter: blur(10px);
+            height: auto;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.75rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.1rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            resize: vertical;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            background-color: white;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            height: 2.75rem;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10B981, #059669);
+            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .loading {
+            display: none;
+            align-items: center;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .loading .spinner {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(79, 70, 229, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            margin-right: 0.6rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            font-size: 0.95rem;
+            display: none;
+            animation: fadeInUp 0.4s ease;
+            font-weight: 500;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #065F46;
+            display: block;
+            border-left: 3px solid var(--success-color);
+        }
+
+        .status.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #B91C1C;
+            display: block;
+            border-left: 3px solid var(--error-color);
+        }
+
+        /* File Input Custom Styling */
+        .file-input-wrapper {
+            position: relative;
+            margin-bottom: 1.25rem;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2; /* To be clickable */
+        }
+
+        .file-input-wrapper .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1rem;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 100px; /* Adjust height as needed */
+            text-align: center;
+        }
+
+        .file-input-wrapper .file-input-label:hover {
+            border-color: var(--primary-light);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .file-input-wrapper .file-input-label i {
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .file-name-display {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Header specific styles (copied from your previous code) */
+        h1.main-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8em;
+            text-align: center;
+            margin: 30px 0;
+            color: transparent;
+            background: linear-gradient(45deg, #00f3ff 30%, #a855f7 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            position: relative;
+            padding: 20px;
+            letter-spacing: 2px;
+        }
+
+        h1.main-header::before,
+        h1.main-header::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3d3dff);
+            animation: borderExpand 1.5s ease-out forwards;
+        }
+
+        h1.main-header::before {
+            top: 0;
+            left: 0;
+        }
+
+        h1.main-header::after {
+            bottom: 0;
+            right: 0;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes borderExpand {
+            to {
+                width: 100%;
+            }
+        }
+
+        .sci-fi-btn {
+            position: relative;
+            padding: 4px 8px;
+            font-family: 'Arial', sans-serif;
+            font-size: 1em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00f3ff;
+            background: #0a0a2e;
+            border: 2px solid #3d3dff;
+            border-radius: 8px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.5s;
+            text-shadow: 0 0 10px #00f3ff;
+            box-shadow: 0 0 20px rgba(61, 61, 255, 0.3);
+        }
+
+        .sci-fi-btn:hover {
+            background: #13134e;
+            box-shadow: 0 0 30px rgba(61, 61, 255, 0.6);
+            transform: scale(1.05);
+            color: #ffffff;
+        }
+
+        .glowing-border:nth-child(1) {
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3d3dff);
+            animation: borderTop 2s linear infinite;
+        }
+
+        @keyframes borderTop {
+            0% {
+                left: -2px;
+            }
+
+            100% {
+
+                left: 100%;
+            }
+        }
+
+        .sci-fi-btn:active {
+            transform: scale(0.45);
+            transition: 0.1s;
+        }
+
+
+        /* Modal styles (copied from your previous code) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            text-align: center;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-buttons .confirm-btn {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .modal-buttons .confirm-btn:hover {
+            background-color: #DC2626;
+        }
+
+        .modal-buttons .cancel-btn {
+            background-color: #ccc;
+            color: var(--text-color);
+        }
+
+        .modal-buttons .cancel-btn:hover {
+            background-color: #bbb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content {
+                flex-direction: column;
+            }
+            .input-section,
+            .output-section {
+                width: 100%;
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem 0.8rem;
+            }
+            h1.main-header {
+                font-size: 2rem;
+            }
+            .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+            .section-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+            textarea {
+                height: 160px;
+            }
+        }
+
+         /* Tối ưu hóa khu vực mẹo sử dụng */
+        .usage-tips {
+            background: linear-gradient(to right, #faf5ff, #f5f3ff);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            /* Giảm khoảng đệm bên trong */
+            margin-top: 1.25rem;
+            /* Giảm khoảng cách trên */
+        }
+
+        .tips-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            /* Giảm khoảng cách dưới */
+            display: flex;
+            align-items: center;
+        }
+
+        .tips-title i {
+            margin-right: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tips-list li {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 0.4rem;
+            /* Giảm khoảng cách dưới */
+            font-size: 0.9rem;
+        }
+
+        .tips-list li:before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .current-voice-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            /* Giảm khoảng cách dưới */
+            background: rgba(255, 255, 255, 0.7);
+            padding: 0.6rem 0.75rem;
+            /* Giảm khoảng đệm bên trong */
+            border-radius: 8px;
+        }
+
+        .current-voice-icon {
+            width: 36px;
+            /* Giảm kích thước biểu tượng */
+            height: 36px;
+            /* Giảm kích thước biểu tượng */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.6rem;
+            /* Giảm lề phải */
+            color: white;
+        }
+
+        .current-voice-details {
+            flex: 1;
+        }
+
+        .current-voice-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.1rem;
+            /* Giảm khoảng cách dưới */
+        }
+
+        .current-voice-desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 1.25rem 0;
+            /* Giảm khoảng cách trên và dưới */
+        }
+
+        .input-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            /* Giảm khoảng cách dưới */
+            display: flex;
+            align-items: center;
+        }
+
+        .input-section-title i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Thiết kế đáp ứng */
+        @media (max-width: 1024px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .text-input-section,
+            .audio-output-section {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem 0.8rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .card {
+                padding: 1rem;
+                /* Tiếp tục giảm khoảng đệm bên trong trên thiết bị di động */
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            textarea {
+                height: 160px;
+                /* Tiếp tục giảm chiều cao hộp văn bản trên thiết bị di động */
+            }
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0 1.5rem;
+            /* Giảm khoảng đệm chân trang */
+            color: var(--text-light);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        footer i {
+            color: var(--primary-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="container">
+        <header>
+            <h1 class="main-header">Chuyển âm thanh thành văn bản AI miễn phí</h1>
+            <p class="description">Tải lên tệp âm thanh, sử dụng AI để chuyển đổi thành văn bản chính xác.</p>
+            <br>
+            <a href="index.html" class="sci-fi-btn" style="text-decoration: none;">
+                <span class="glowing-border"></span>
+                <span class="glowing-border"></span>
+                Quay lại trang chủ
+            </a>
+        </header>
+
+        <div class="content">
+            <section class="input-section">
+                <div class="card">
+                    <h2 class="section-title"><i class="fas fa-upload"></i>Tải lên âm thanh</h2>
+                    <p style="margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-light);">
+                        Chọn tệp âm thanh (MP3, WAV) để AI phiên âm thành văn bản.
+                    </p>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="audioFile" accept=".mp3, .wav">
+                        <label for="audioFile" class="file-input-label">
+                            <i class="fas fa-file-audio"></i>
+                            <span id="fileNameLabel">Nhấn để chọn tệp...</span>
+                        </label>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; margin-top: 1.5rem;"> <!-- Căn giữa nút -->
+                        <button id="transcribeButton" class="btn">
+                            <i class="fas fa-headset"></i>
+                            <span id="transcribeBtnText">Bắt đầu phiên âm</span>
+                            <span id="transcribeBtnSpinner" class="spinner" style="display: none; margin-left: 8px;"></span>
+                        </button>
+                    </div>
+                    <div class="loading" id="loadingIndicator">
+                        <span class="spinner"></span> Đang phiên âm...
+                    </div>
+                </div>
+                <div class="usage-tips">
+                    <div class="tips-title"><i class="fas fa-lightbulb"></i>Mẹo sử dụng</div>
+                    <ul class="tips-list">
+                        <li class="feature-item">
+                            <div class="feature-text">Sử dụng các tệp âm thanh rõ ràng, chất lượng cao để có kết quả tốt nhất.</div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-text">Đảm bảo giọng nói trong tệp không bị nhiễu nền quá nhiều.</div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-text">Các định dạng tệp được hỗ trợ: MP3 và WAV.</div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-text">Đối với các tệp dài, quá trình phiên âm có thể mất một chút thời gian.</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="output-section">
+                <div class="card">
+                    <h2 class="section-title"><i class="fas fa-file-alt"></i>Kết quả phiên âm</h2>
+                    <p style="margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-light);">
+                        Văn bản đã được phiên âm sẽ xuất hiện ở đây.
+                    </p>
+                    <textarea id="transcriptionResult" placeholder="Văn bản phiên âm sẽ xuất hiện ở đây..." readonly></textarea>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>© 2025 <a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;">Vipo.Top</a> | Dựa trên AI | <i class="fas fa-sparkles"></i><a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;">Mời quản trị viên một ly cà phê</a> </p>
+        </footer>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div id="alertIconContainer" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-800/30 mb-4">
+                <i id="alertIcon" class="fas fa-exclamation-triangle text-red-500 dark:text-red-400 text-2xl"></i>
+            </div>
+            <p id="alertModalTitle" class="text-lg leading-6 font-semibold text-slate-900 dark:text-slate-100">Notification</p>
+            <div class="mt-2 px-2 py-3">
+                <p id="alertModalMessage" class="text-sm text-slate-600 dark:text-slate-300"></p>
+            </div>
+            <div class="mt-4 px-2">
+                <button id="alertModalCloseBtn" class="w-full px-4 py-2.5 bg-sky-500 text-white text-sm font-medium rounded-md shadow-sm hover:bg-sky-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-slate-800 transition-colors">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioFileInput = document.getElementById('audioFile');
+            const transcribeButton = document.getElementById('transcribeButton');
+            const transcriptionResultTextarea = document.getElementById('transcriptionResult');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const fileNameLabel = document.getElementById('fileNameLabel');
+
+            // Alert Modal Elements
+            const alertModal = document.getElementById('alertModal');
+            const alertModalContent = document.getElementById('alertModalContent');
+            const alertModalTitle = document.getElementById('alertModalTitle');
+            const alertModalMessage = document.getElementById('alertModalMessage');
+            const alertModalCloseBtn = document.getElementById('alertModalCloseBtn');
+            const alertIconContainer = document.getElementById('alertIconContainer');
+            const alertIcon = document.getElementById('alertIcon');
+
+            // NEW: References for button text and spinner
+            const transcribeBtnText = document.getElementById('transcribeBtnText');
+            const transcribeBtnSpinner = document.getElementById('transcribeBtnSpinner');
+
+            // Function to show custom alert
+            function showAlert(message, title = 'Thông báo', isError = false) {
+                alertModalTitle.textContent = title;
+                alertModalMessage.innerHTML = message;
+
+                if(isError) {
+                    alertModalTitle.classList.remove('text-sky-700', 'dark:text-sky-300');
+                    alertModalTitle.classList.add('text-red-700', 'dark:text-red-300');
+                    if (alertIconContainer) {
+                        alertIconContainer.className = 'mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-800/30 mb-4';
+                    }
+                    if (alertIcon) {
+                        alertIcon.className = 'fas fa-exclamation-triangle text-red-500 dark:text-red-400 text-2xl';
+                    }
+                } else {
+                    alertModalTitle.classList.remove('text-red-700', 'dark:text-red-300');
+                    alertModalTitle.classList.add('text-sky-700', 'dark:text-sky-300');
+                    if (alertIconContainer) {
+                        alertIconContainer.className = 'mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-sky-100 dark:bg-sky-800/30 mb-4';
+                    }
+                    if (alertIcon) {
+                        alertIcon.className = 'fas fa-info-circle text-sky-500 dark:text-sky-400 text-2xl';
+                    }
+                }
+
+                alertModal.classList.remove('hidden');
+                setTimeout(() => {
+                    alertModal.classList.remove('opacity-0');
+                    alertModalContent.classList.remove('scale-95', 'opacity-0');
+                    alertModalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+
+            alertModalCloseBtn.addEventListener('click', () => {
+                alertModalContent.classList.remove('scale-100', 'opacity-100');
+                alertModalContent.classList.add('scale-95', 'opacity-0');
+                alertModal.classList.add('opacity-0');
+                setTimeout(() => {
+                    alertModal.classList.add('hidden');
+                }, 300);
+            });
+
+            window.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !alertModal.classList.contains('hidden')) {
+                    alertModalCloseBtn.click();
+                }
+            });
+
+            // Update file name label on file selection
+            audioFileInput.addEventListener('change', () => {
+                if (audioFileInput.files.length > 0) {
+                    fileNameLabel.textContent = audioFileInput.files[0].name;
+                    fileNameLabel.classList.remove('text-slate-400');
+                    fileNameLabel.classList.add('text-green-600', 'dark:text-green-400');
+                } else {
+                    fileNameLabel.textContent = 'Nhấn để chọn tệp...';
+                    fileNameLabel.classList.add('text-slate-400');
+                    fileNameLabel.classList.remove('text-green-600', 'dark:text-green-400');
+                }
+            });
+
+            // Function to encode file to base64 (prefix removed for this API)
+            function fileToBase64Data(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const base64String = reader.result.split(",")[1];
+                        resolve(base64String);
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            async function callTranscribeApi(audioFile, question = "Transcribe this audio") {
+                const url = "https://text.pollinations.ai/openai";
+                try {
+                    const base64AudioData = await fileToBase64Data(audioFile);
+                    const audioFormat = audioFile.name.split(".").pop().toLowerCase();
+
+                    if (!['wav', 'mp3'].includes(audioFormat)) {
+                        throw new Error(`Định dạng tệp .${audioFormat} không được hỗ trợ. Vui lòng sử dụng WAV hoặc MP3.`);
+                    }
+                    const payload = {
+                        model: "openai-audio", // This model handles transcription for Pollinations.ai
+                        messages: [{
+                            role: "user",
+                            content: [{
+                                type: "text",
+                                text: question
+                            }, {
+                                type: "input_audio",
+                                input_audio: { data: base64AudioData, format: audioFormat },
+                            }],
+                        }],
+                    };
+
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload),
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        let detailedError = errorText;
+                        try {
+                            const errorJson = JSON.parse(errorText);
+                            if (errorJson?.error?.message) {
+                                detailedError = errorJson.error.message;
+                            } else if (errorJson?.detail) {
+                                detailedError = JSON.stringify(errorJson.detail);
+                            }
+                        } catch (e) { /* Not a JSON error */ }
+                        throw new Error(`Lỗi API: ${response.status}. ${detailedError}`);
+                    }
+
+                    const result = await response.json();
+                    const transcription = result?.choices?.[0]?.message?.content;
+                    if (transcription) {
+                        return transcription;
+                    } else {
+                        console.error("Không tìm thấy nội dung phiên âm trong phản hồi:", result);
+                        throw new Error("Không thể trích xuất văn bản từ phản hồi của API.");
+                    }
+                } catch (error) {
+                    console.error("Lỗi chi tiết trong callTranscribeApi:", error);
+                    if (error instanceof TypeError && error.message.toLowerCase().includes('failed to fetch')) {
+                        throw new Error("Lỗi kết nối mạng hoặc API bị chặn. Vui lòng kiểm tra kết nối mạng và thử lại.");
+                    }
+                    throw error;
+                }
+            }
+
+            // This is the new displayError function
+            function displayError(message) {
+                showAlert(message, 'Đã xảy ra lỗi', true);
+            }
+
+            transcribeButton.addEventListener('click', async () => {
+                const audioFile = audioFileInput.files[0];
+                if (!audioFile) {
+                    displayError('Vui lòng chọn một tệp âm thanh.');
+                    return;
+                }
+
+                transcriptionResultTextarea.value = '';
+                loadingIndicator.classList.remove('hidden'); // This controls the general "Đang phiên âm..." message
+                transcribeButton.disabled = true;
+
+                // NEW: Show button loading state
+                transcribeBtnText.textContent = "Đang phiên âm...";
+                transcribeBtnSpinner.style.display = 'inline-block';
+
+                try {
+                    const transcriptionText = await callTranscribeApi(audioFile);
+                    transcriptionResultTextarea.value = transcriptionText;
+                } catch (error) {
+                    displayError(error.message);
+                } finally {
+                    loadingIndicator.classList.add('hidden'); // Hide the general loading message
+                    transcribeButton.disabled = false;
+                    // NEW: Hide button loading state and reset text
+                    transcribeBtnText.textContent = "Bắt đầu phiên âm";
+                    transcribeBtnSpinner.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

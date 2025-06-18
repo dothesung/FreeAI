@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InfipAI - Trình tạo ảnh AI</title>
+    <title>Trình tạo ảnh AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,7 @@
 
     <div class="w-full max-w-4xl bg-white rounded-xl shadow-2xl p-6 md:p-8">
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900">InfipAI Image Generator</h1>
+            <h1 class="text-4xl font-bold text-gray-900">Image Generator</h1>
             <p class="text-gray-500 mt-2">Tạo ra những tác phẩm nghệ thuật độc đáo từ mô tả của bạn.</p>
         </div>
 
@@ -97,9 +97,7 @@
 
     <script>
         // --- Cấu hình và các biến toàn cục ---
-        
-        // FIX: Thay thế proxy công cộng bằng địa chỉ Cloudflare Worker của bạn.
-        // Bạn sẽ có URL này sau khi triển khai Worker theo hướng dẫn.
+        // Địa chỉ API giờ đây là Cloudflare Worker của bạn,
         const API_ENDPOINT = 'https://imagen-3.zinghay-com.workers.dev/';
 
         // --- Lấy các phần tử DOM ---
@@ -114,12 +112,6 @@
         // --- Hàm xử lý chính khi submit form ---
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
-
-            // QUAN TRỌNG: Kiểm tra xem người dùng đã thay thế URL Worker hay chưa
-            if (API_ENDPOINT.includes('YOUR_WORKER_NAME')) {
-                alert('Vui lòng cập nhật hằng số API_ENDPOINT trong mã nguồn bằng URL Cloudflare Worker của bạn trước khi chạy!');
-                return;
-            }
             
             const formData = new FormData(form);
             const prompt = formData.get('prompt').trim();
@@ -129,7 +121,7 @@
             }
 
             resetUI();
-            setLoading(true, 'Đang gửi yêu cầu đến máy chủ InfipAI...');
+            setLoading(true, 'Bắt đầu... Worker đang gọi đến sever.');
 
             try {
                 // Chuẩn bị payload từ form
@@ -138,10 +130,10 @@
                     num_images: parseInt(formData.get('num_images'), 10),
                     aspect_ratio: formData.get('aspect_ratio'),
                     models: formData.get('model'),
-                    seed: parseInt(formData.get('seed'), 10) || 0 // 0 nghĩa là ngẫu nhiên trong API này
+                    seed: parseInt(formData.get('seed'), 10) || 0
                 };
                 
-                updateStatus('Máy chủ đang xử lý... (có thể mất một chút thời gian)');
+                updateStatus('Đang tạo ảnh. Worker đang chờ...');
 
                 const response = await fetch(API_ENDPOINT, {
                     method: 'POST',
@@ -157,6 +149,7 @@
                     throw new Error(`API trả về lỗi ${response.status}: ${errorText}`);
                 }
 
+                updateStatus('Sever đang upload ảnh lên Catbox.moe...');
                 const data = await response.json();
                 
                 if (data && data.images && data.images.length > 0) {
@@ -198,19 +191,39 @@
         }
 
         function displayResults(imageUrls) {
-            updateStatus(`Hoàn thành! Đã tạo ra ${imageUrls.length} ảnh.`);
+            let successfulUploads = 0;
             imageUrls.forEach(url => {
                 const imgWrapper = document.createElement('div');
-                imgWrapper.className = 'bg-gray-200 rounded-lg overflow-hidden shadow-md';
-                
-                const img = document.createElement('img');
-                img.src = url;
-                img.alt = 'Generated AI Image';
-                img.className = 'w-full h-full object-cover';
-                
-                imgWrapper.appendChild(img);
+                imgWrapper.className = 'bg-gray-200 rounded-lg overflow-hidden shadow-md p-2 flex flex-col items-center justify-center';
+
+                let finalUrl = '';
+                // Kiểm tra xem URL có phải là URL hợp lệ từ Catbox hay không.
+                // Nếu không, nó có thể là URL gốc từ Infip do upload thất bại.
+                if (url && url.includes('catbox.moe')) {
+                    finalUrl = url;
+                } else if (url && !url.startsWith('http')) {
+                    // Xử lý trường hợp Catbox chỉ trả về tên file
+                    finalUrl = `https://files.catbox.moe/${url}`;
+                }
+
+                if (finalUrl) {
+                    const img = document.createElement('img');
+                    img.src = finalUrl;
+                    img.alt = 'Generated AI Image';
+                    img.className = 'w-full h-full object-cover rounded';
+                    imgWrapper.appendChild(img);
+                    successfulUploads++;
+                } else {
+                    // Nếu URL không hợp lệ (là URL gốc), hiển thị thông báo lỗi
+                    imgWrapper.classList.add('bg-red-100', 'text-red-700');
+                    const errorText = document.createElement('p');
+                    errorText.className = 'text-xs text-center break-all';
+                    errorText.innerHTML = `<strong>Lỗi Upload</strong><br>Không thể lấy link URL gốc: <em>${url || 'N/A'}</em>`;
+                    imgWrapper.appendChild(errorText);
+                }
                 imageContainer.appendChild(imgWrapper);
             });
+             updateStatus(`Hoàn thành! Upload thành công ${successfulUploads}/${imageUrls.length} ảnh lên.`);
         }
         
         function displayError(message) {

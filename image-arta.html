@@ -84,7 +84,8 @@
         // --- Cấu hình và các biến toàn cục ---
         // QUAN TRỌNG: Dán URL Worker bạn đã triển khai ở trên vào đây.
         // const WORKER_URL = 'https://ai-arta.zinghay-com.workers.dev/';
-        const WORKER_URL = window.ENV_WORKER_URL || 'YOUR_WORKER_URL_DEFAULT';
+            const WORKER_URL = "__WORKER_URL__";
+        console.log("Worker URL is:", WORKER_URL);
 
 
         const AVAILABLE_MODELS = [

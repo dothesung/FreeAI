@@ -97,9 +97,10 @@
 
     <script>
         // --- Cấu hình và các biến toàn cục ---
-        // Sử dụng một proxy CORS để tránh lỗi "Failed to fetch" trên trình duyệt.
-        const PROXY_URL = 'https://cors.proxy.is/'; 
-        const API_ENDPOINT = `${PROXY_URL}https://api.infip.pro/generate`;
+        
+        // FIX: Thay thế proxy công cộng bằng địa chỉ Cloudflare Worker của bạn.
+        // Bạn sẽ có URL này sau khi triển khai Worker theo hướng dẫn.
+        const API_ENDPOINT = 'https://imagen-3.zinghay-com.workers.dev/';
 
         // --- Lấy các phần tử DOM ---
         const form = document.getElementById('generation-form');
@@ -113,6 +114,13 @@
         // --- Hàm xử lý chính khi submit form ---
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
+
+            // QUAN TRỌNG: Kiểm tra xem người dùng đã thay thế URL Worker hay chưa
+            if (API_ENDPOINT.includes('YOUR_WORKER_NAME')) {
+                alert('Vui lòng cập nhật hằng số API_ENDPOINT trong mã nguồn bằng URL Cloudflare Worker của bạn trước khi chạy!');
+                return;
+            }
+            
             const formData = new FormData(form);
             const prompt = formData.get('prompt').trim();
             if (!prompt) {

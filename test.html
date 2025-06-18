@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfipAI - Trình tạo ảnh AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #4f46e5;
+            animation: spin 1s ease infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .grid-img {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-4xl bg-white rounded-xl shadow-2xl p-6 md:p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900">InfipAI Image Generator</h1>
+            <p class="text-gray-500 mt-2">Tạo ra những tác phẩm nghệ thuật độc đáo từ mô tả của bạn.</p>
+        </div>
+
+        <!-- Form nhập liệu -->
+        <form id="generation-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2">
+                <label for="prompt" class="block text-sm font-medium text-gray-700 mb-1">Câu lệnh (Prompt)</label>
+                <textarea id="prompt" name="prompt" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Ví dụ: một con rồng hùng vĩ bay trên những ngọn núi tuyết..."></textarea>
+            </div>
+
+            <div>
+                <label for="model" class="block text-sm font-medium text-gray-700 mb-1">Model</label>
+                <select id="model" name="model" class="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                    <option value="img4">img4 (Chất lượng cao)</option>
+                    <option value="img3">img3</option>
+                    <option value="uncen">uncen (Không kiểm duyệt)</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="aspect_ratio" class="block text-sm font-medium text-gray-700 mb-1">Tỷ lệ khung hình</label>
+                <select id="aspect_ratio" name="aspect_ratio" class="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                    <option value="IMAGE_ASPECT_RATIO_LANDSCAPE">Ngang (16:9)</option>
+                    <option value="IMAGE_ASPECT_RATIO_SQUARE">Vuông (1:1)</option>
+                    <option value="IMAGE_ASPECT_RATIO_PORTRAIT">Dọc (9:16)</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="num_images" class="block text-sm font-medium text-gray-700 mb-1">Số lượng ảnh</label>
+                <input type="number" id="num_images" name="num_images" value="1" min="1" max="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+            </div>
+
+            <div>
+                <label for="seed" class="block text-sm font-medium text-gray-700 mb-1">Seed (Tùy chọn)</label>
+                <input type="number" id="seed" name="seed" placeholder="Để trống để tạo ngẫu nhiên" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+            </div>
+
+            <div class="md:col-span-2">
+                <button type="submit" id="submit-button" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all duration-300 flex items-center justify-center gap-2 text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path><path d="m15.5 7.5-1 1-2-2-1 1V14"></path><path d="m9.5 16.5 1-1 2 2 1-1V10"></path></svg>
+                    Tạo ảnh ngay
+                </button>
+            </div>
+        </form>
+
+        <!-- Khu vực hiển thị kết quả và trạng thái -->
+        <div id="result-area" class="mt-8 text-center hidden">
+             <div class="flex justify-center items-center mb-4">
+                <div id="spinner" class="spinner"></div>
+            </div>
+            <p id="status-text" class="text-gray-600 font-medium"></p>
+            <div id="image-container" class="mt-4 grid-img">
+                <!-- Các ảnh sẽ được thêm vào đây bằng JS -->
+            </div>
+            <p id="error-message" class="mt-4 text-red-500 font-semibold hidden"></p>
+        </div>
+    </div>
+
+    <script>
+        // --- Cấu hình và các biến toàn cục ---
+        // Sử dụng một proxy CORS để tránh lỗi "Failed to fetch" trên trình duyệt.
+        const PROXY_URL = 'https://cors.proxy.is/'; 
+        const API_ENDPOINT = `${PROXY_URL}https://api.infip.pro/generate`;
+
+        // --- Lấy các phần tử DOM ---
+        const form = document.getElementById('generation-form');
+        const submitButton = document.getElementById('submit-button');
+        const resultArea = document.getElementById('result-area');
+        const statusText = document.getElementById('status-text');
+        const imageContainer = document.getElementById('image-container');
+        const errorMessage = document.getElementById('error-message');
+        const spinner = document.getElementById('spinner');
+
+        // --- Hàm xử lý chính khi submit form ---
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const prompt = formData.get('prompt').trim();
+            if (!prompt) {
+                alert('Vui lòng nhập câu lệnh (prompt).');
+                return;
+            }
+
+            resetUI();
+            setLoading(true, 'Đang gửi yêu cầu đến máy chủ InfipAI...');
+
+            try {
+                // Chuẩn bị payload từ form
+                const payload = {
+                    prompt: prompt,
+                    num_images: parseInt(formData.get('num_images'), 10),
+                    aspect_ratio: formData.get('aspect_ratio'),
+                    models: formData.get('model'),
+                    seed: parseInt(formData.get('seed'), 10) || 0 // 0 nghĩa là ngẫu nhiên trong API này
+                };
+                
+                updateStatus('Máy chủ đang xử lý... (có thể mất một chút thời gian)');
+
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`API trả về lỗi ${response.status}: ${errorText}`);
+                }
+
+                const data = await response.json();
+                
+                if (data && data.images && data.images.length > 0) {
+                    displayResults(data.images);
+                } else {
+                    throw new Error('API không trả về ảnh nào.');
+                }
+
+            } catch (error) {
+                console.error('Lỗi trong quá trình tạo ảnh:', error);
+                displayError(error.message || 'Đã có lỗi không mong muốn xảy ra. Vui lòng thử lại.');
+            } finally {
+                setLoading(false);
+            }
+        });
+        
+        // --- Các hàm tiện ích cho UI ---
+        function resetUI() {
+            resultArea.classList.remove('hidden');
+            imageContainer.innerHTML = ''; // Xóa các ảnh cũ
+            errorMessage.classList.add('hidden');
+        }
+
+        function setLoading(isLoading, message = '') {
+            if (isLoading) {
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                spinner.classList.remove('hidden');
+                statusText.textContent = message;
+            } else {
+                submitButton.disabled = false;
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                spinner.classList.add('hidden');
+            }
+        }
+        
+        function updateStatus(message) {
+            statusText.textContent = message;
+        }
+
+        function displayResults(imageUrls) {
+            updateStatus(`Hoàn thành! Đã tạo ra ${imageUrls.length} ảnh.`);
+            imageUrls.forEach(url => {
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = 'bg-gray-200 rounded-lg overflow-hidden shadow-md';
+                
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = 'Generated AI Image';
+                img.className = 'w-full h-full object-cover';
+                
+                imgWrapper.appendChild(img);
+                imageContainer.appendChild(imgWrapper);
+            });
+        }
+        
+        function displayError(message) {
+            updateStatus('Đã xảy ra lỗi!');
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Arta - Trình tạo ảnh AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #09f;
+            animation: spin 1s ease infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-2xl bg-white rounded-xl shadow-lg p-6 md:p-8">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">AI Arta Image Generator</h1>
+            <p class="text-gray-500 mt-2">Biến ý tưởng của bạn thành hình ảnh nghệ thuật độc đáo.</p>
+        </div>
+
+        <!-- Form nhập liệu -->
+        <form id="generation-form" class="space-y-4">
+            <div>
+                <label for="prompt" class="block text-sm font-medium text-gray-700 mb-1">Câu lệnh (Prompt)</label>
+                <textarea id="prompt" name="prompt" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ví dụ: một chú mèo phi hành gia đang cưỡi kỳ lân trong vũ trụ..."></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                 <div>
+                    <label for="model" class="block text-sm font-medium text-gray-700 mb-1">Model nghệ thuật</label>
+                    <select id="model" name="model" class="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                        <!-- Các model sẽ được thêm vào bằng JS -->
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="aspect_ratio" class="block text-sm font-medium text-gray-700 mb-1">Tỷ lệ khung hình</label>
+                     <select id="aspect_ratio" name="aspect_ratio" class="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                        <option value="1:1" selected>1:1 (Vuông)</option>
+                        <option value="16:9">16:9 (Ngang)</option>
+                        <option value="9:16">9:16 (Dọc)</option>
+                        <option value="4:3">4:3 (Cổ điển)</option>
+                        <option value="3:4">3:4 (Dọc cổ điển)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" id="submit-button" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                Tạo ảnh
+            </button>
+        </form>
+
+        <!-- Khu vực hiển thị kết quả và trạng thái -->
+        <div id="result-area" class="mt-6 text-center hidden">
+             <div class="flex justify-center items-center mb-4">
+                <div id="spinner" class="spinner"></div>
+            </div>
+            <p id="status-text" class="text-gray-600 font-medium"></p>
+            <div id="image-container" class="mt-4">
+                <img id="result-image" src="" alt="Generated Image" class="max-w-full mx-auto rounded-lg shadow-md hidden">
+                <p id="error-message" class="text-red-500 font-semibold hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Cấu hình và các biến toàn cục ---
+        // QUAN TRỌNG: Dán URL Worker bạn đã triển khai ở trên vào đây.
+        // const WORKER_URL = 'https://ai-arta.zinghay-com.workers.dev/';
+        const WORKER_URL = window.ENV_WORKER_URL || 'YOUR_WORKER_URL_DEFAULT';
+
+
+        const AVAILABLE_MODELS = [
+            "High GPT4o", "On limbs black", "F Dev", "SDXL 1.0", "Old School", "Vincent Van Gogh",
+            "Cor-epica-xl", "Professional", "Cheyenne-xl", "Chicano", "SDXL L", "Black Ink",
+            "Juggernaut-xl", "Cinematic Art", "Dreamshaper-xl", "Fantasy Art", "Neo-traditional",
+            "Realistic-stock-xl", "Flame design", "Japanese_2", "Medieval", "Surrealism", "Dotwork",
+            "Graffiti", "RevAnimated", "On limbs color", "Old school colored", "GPT4o Ghibli",
+            "Low Poly", "GPT4o", "No Style", "Anime", "tattoo", "Embroidery tattoo", "Mini tattoo",
+            "Realistic tattoo", "Playground-xl", "Watercolor", "F Pro", "Kawaii", "Photographic",
+            "Katayama-mix-xl", "Death metal", "New School", "Pony-xl", "Anima-pencil-xl", "Flux",
+            "Biomech", "Yamers-realistic-xl", "Trash Polka", "Red and Black",
+        ];
+
+        // --- Lấy các phần tử DOM ---
+        const form = document.getElementById('generation-form');
+        const promptInput = document.getElementById('prompt');
+        const modelSelect = document.getElementById('model');
+        const aspectRatioSelect = document.getElementById('aspect_ratio'); // Lấy dropdown tỷ lệ khung hình
+        const submitButton = document.getElementById('submit-button');
+        const resultArea = document.getElementById('result-area');
+        const statusText = document.getElementById('status-text');
+        const resultImage = document.getElementById('result-image');
+        const errorMessage = document.getElementById('error-message');
+        const spinner = document.getElementById('spinner');
+
+        // --- Khởi tạo ---
+        document.addEventListener('DOMContentLoaded', () => {
+            AVAILABLE_MODELS.forEach(modelName => {
+                const option = document.createElement('option');
+                option.value = modelName;
+                option.textContent = modelName;
+                modelSelect.appendChild(option);
+            });
+             if (WORKER_URL.includes('YOUR_WORKER_URL')) {
+                alert('Vui lòng cập nhật hằng số WORKER_URL trong mã nguồn bằng URL Cloudflare Worker của bạn!');
+            }
+        });
+
+        // --- Hàm xử lý chính khi submit form ---
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const prompt = promptInput.value.trim();
+            const model = modelSelect.value;
+            const aspect_ratio = aspectRatioSelect.value; // Lấy giá trị tỷ lệ khung hình đã chọn
+
+            if (!prompt) {
+                alert('Vui lòng nhập câu lệnh (prompt).');
+                return;
+            }
+
+            resetUI();
+            setLoading(true, 'Đang gửi yêu cầu đến Worker...');
+
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    // Gửi cả tỷ lệ khung hình đến Worker
+                    body: JSON.stringify({ prompt, model, aspect_ratio }) 
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.message || 'Worker trả về một lỗi không xác định.');
+                }
+                
+                // Hiển thị kết quả
+                displayResult(data.imageUrl);
+
+            } catch (error) {
+                console.error('Lỗi trong quá trình tạo ảnh:', error);
+                displayError(error.message || 'Đã có lỗi không mong muốn xảy ra.');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // --- Các hàm tiện ích cho UI ---
+        function resetUI() {
+            resultArea.classList.remove('hidden');
+            resultImage.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+        }
+
+        function setLoading(isLoading, message = '') {
+            if (isLoading) {
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                spinner.classList.remove('hidden');
+                statusText.textContent = message;
+            } else {
+                submitButton.disabled = false;
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                spinner.classList.add('hidden');
+            }
+        }
+        
+        function updateStatus(message) {
+            statusText.textContent = message;
+        }
+
+        function displayResult(imageUrl) {
+            updateStatus('Hoàn thành!');
+            resultImage.src = imageUrl;
+            resultImage.classList.remove('hidden');
+        }
+        
+        function displayError(message) {
+            updateStatus('Đã xảy ra lỗi!');
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

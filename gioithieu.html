@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <title>Giới thiệu về FreeAI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+        /* Các biến và kiểu cơ bản được lấy từ styles.css */
+        /* Nếu styles.css không chứa các biến này, bạn có thể cần thêm chúng vào styles.css hoặc tại đây */
+        :root {
+            --primary-color: #4F46E5;
+            --primary-light: #6366F1;
+            --primary-dark: #4338CA;
+            --secondary-color: #8B5CF6;
+            --light-bg: #F8FAFC;
+            --border-color: #E2E8F0;
+            --text-color: #1E293B;
+            --text-light: #64748B;
+            --success-color: #10B981;
+            --error-color: #EF4444;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #4F46E5, #7C3AED);
+            --gradient-secondary: linear-gradient(135deg, #8B5CF6, #C084FC);
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            background-image: radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.03) 0%, transparent 600px), radial-gradient(circle at 20% 90%, rgba(79, 70, 229, 0.03) 0%, transparent 600px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem;
+            flex-grow: 1;
+        }
+
+        h1.main-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8em;
+            text-align: center;
+            margin: 30px 0;
+            color: transparent;
+            background: linear-gradient(45deg, #00f3ff 30%, #a855f7 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            position: relative;
+            padding: 20px;
+            letter-spacing: 2px;
+        }
+
+        h1.main-header::before,
+        h1.main-header::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3d3dff);
+            animation: borderExpand 1.5s ease-out forwards;
+        }
+
+        h1.main-header::before {
+            top: 0;
+            left: 0;
+        }
+
+        h1.main-header::after {
+            bottom: 0;
+            right: 0;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes borderExpand {
+            to {
+                width: 100%;
+            }
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 1rem;
+            font-size: 1.2em;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        ul li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+        }
+
+        ul li i {
+            margin-right: 1rem;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 5px; /* Align icon better with text */
+        }
+
+        .highlight-text {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1.main-header {
+                font-size: 2.2em;
+            }
+            .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+            ul li {
+                font-size: 0.95rem;
+            }
+            ul li i {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header></header> <!-- Sẽ được thay thế bằng header.html -->
+
+    <div class="container">
+        <h1 class="main-header">Giới thiệu về FreeAI</h1>
+        <p class="description">
+            FreeAI là nền tảng tiên phong cung cấp các công cụ trí tuệ nhân tạo miễn phí, mang sức mạnh của AI đến gần hơn với mọi người.
+            Chúng tôi tin rằng công nghệ AI nên dễ tiếp cận và hữu ích cho tất cả mọi người.
+        </p>
+
+        <section>
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-robot"></i>Sứ mệnh của chúng tôi</h2>
+                <p>
+                    Sứ mệnh của FreeAI là <span class="highlight-text">đơn giản hóa và dân chủ hóa quyền truy cập vào các công cụ AI tiên tiến</span>.
+                    Chúng tôi mong muốn trao quyền cho các cá nhân và doanh nghiệp bằng cách cung cấp các giải pháp miễn phí, mạnh mẽ và dễ sử dụng, thúc đẩy sự sáng tạo, năng suất và đổi mới.
+                </p>
+                <p>
+                    Chúng tôi không ngừng nghiên cứu và phát triển để tích hợp những mô hình AI mới nhất, đảm bảo bạn luôn có được những trải nghiệm tốt nhất và những công cụ hữu ích nhất, hoàn toàn miễn phí.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-tools"></i>Các công cụ AI hiện có</h2>
+                <ul>
+                    <li><i class="fas fa-comments"></i> <strong>Trò chuyện AI thông minh:</strong> Một trợ lý đàm thoại mạnh mẽ để trả lời câu hỏi, tạo ý tưởng, viết văn bản và giải quyết vấn đề.</li>
+                    <li><i class="fas fa-palette"></i> <strong>Tạo ảnh AI Flux:</strong> Biến mô tả văn bản thành tác phẩm nghệ thuật hình ảnh tuyệt đẹp với mô hình Flux đa năng.</li>
+                    <li><i class="fas fa-images"></i> <strong>Tạo ảnh AI DALL-E:</strong> Sử dụng công nghệ DALL-E của OpenAI để tạo ra hình ảnh độc đáo từ văn bản.</li>
+                    <li><i class="fas fa-magic"></i> <strong>Tạo ảnh AI Imagen:</strong> Khám phá khả năng sáng tạo hình ảnh chất lượng cao và chi tiết với Imagen của Google.</li>
+                    <li><i class="fas fa-paint-brush"></i> <strong>Tạo ảnh AI Arta:</strong> Tạo hình ảnh độc đáo với nhiều phong cách nghệ thuật khác nhau.</li>
+                    <li><i class="fas fa-volume-up"></i> <strong>Tổng hợp giọng nói AI (TTS):</strong> Chuyển đổi văn bản thành giọng nói tự nhiên với nhiều ngôn ngữ và kiểu giọng điệu.</li>
+                    <li><i class="fas fa-microphone-alt"></i> <strong>Chuyển âm thanh thành văn bản AI (STT):</strong> Phiên âm chính xác các tệp âm thanh thành văn bản.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-handshake"></i>Tại sao chọn FreeAI?</h2>
+                <ul>
+                    <li><i class="fas fa-dollar-sign"></i> <strong>Hoàn toàn miễn phí:</strong> Không có chi phí ẩn, không giới hạn sử dụng các tính năng cốt lõi.</li>
+                    <li><i class="fas fa-lock"></i> <strong>Bảo mật & Riêng tư:</strong> Chúng tôi cam kết bảo vệ dữ liệu của bạn và không lưu trữ thông tin cá nhân.</li>
+                    <li><i class="fas fa-globe"></i> <strong>Đa ngôn ngữ & Đa dạng:</strong> Hỗ trợ nhiều ngôn ngữ và các mô hình AI khác nhau để đáp ứng nhu cầu đa dạng.</li>
+                    <li><i class="fas fa-lightbulb"></i> <strong>Dễ sử dụng:</strong> Giao diện trực quan, thân thiện với người dùng, giúp bạn dễ dàng bắt đầu.</li>
+                    <li><i class="fas fa-rocket"></i> <strong>Cập nhật liên tục:</strong> Luôn cập nhật các công nghệ AI mới nhất để mang lại hiệu suất tối ưu.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <footer></footer> <!-- Sẽ được thay thế bằng footer.html -->
+
+    <script src="js/main.js"></script>
+</body>
+</html>

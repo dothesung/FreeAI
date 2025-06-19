@@ -325,6 +325,28 @@
             color: var(--neon-purple);
             text-shadow: 0 0 10px var(--neon-purple);
         }
+        /* New card icon colors */
+        .card-icon.stt-icon {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+        .card-icon.dalle-icon {
+            color: #FF6600;
+            text-shadow: 0 0 10px #FF6600;
+        }
+        .card-icon.imagen-icon {
+            color: #8A2BE2;
+            text-shadow: 0 0 10px #8A2BE2;
+        }
+        .card-icon.arta-icon {
+            color: #00FFFF;
+            text-shadow: 0 0 10px #00FFFF;
+        }
+        .card-icon.donate-icon { /* New icon style for donate card */
+            color: #FD7B68; /* A warm, inviting color */
+            text-shadow: 0 0 10px #FD7B68;
+        }
+
         .card h2 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
@@ -393,6 +415,43 @@
         .card:nth-child(3) .btn::before {
             background: var(--neon-purple);
         }
+        /* New button colors for new cards */
+        .card .btn.stt-btn {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+        .card .btn.stt-btn::before {
+            background: var(--neon-green);
+        }
+        .card .btn.dalle-btn {
+            border-color: #FF6600;
+            color: #FF6600;
+        }
+        .card .btn.dalle-btn::before {
+            background: #FF6600;
+        }
+        .card .btn.imagen-btn {
+            border-color: #8A2BE2;
+            color: #8A2BE2;
+        }
+        .card .btn.imagen-btn::before {
+            background: #8A2BE2;
+        }
+        .card .btn.arta-btn {
+            border-color: #00FFFF;
+            color: #00FFFF;
+        }
+        .card .btn.arta-btn::before {
+            background: #00FFFF;
+        }
+        .card .btn.donate-btn { /* New button style for donate card */
+            border-color: #FD7B68;
+            color: #FD7B68;
+        }
+        .card .btn.donate-btn::before {
+            background: #FD7B68;
+        }
+
         .code-lines {
             position: absolute;
             left: 0;
@@ -617,9 +676,11 @@
         <div class="circuit-line"></div>
         <div class="circuit-line"></div>
     </div>
+    <!-- Hiệu ứng tinh vân -->
     <div class="nebula" style="width: 600px; height: 600px; top: -100px; left: -100px; background: var(--nebula-color1);"></div>
     <div class="nebula" style="width: 500px; height: 500px; bottom: -100px; right: -100px; background: var(--nebula-color2); animation-delay: -15s;"></div>
     <div class="nebula" style="width: 400px; height: 400px; top: 50%; right: -150px; background: var(--nebula-color3); animation-delay: -7s;"></div>
+    <!-- Quỹ đạo hành tinh -->
     <div class="orbit" style="width: 800px; height: 800px; top: 50%; left: 10%; transform: translate(-50%, -50%);">
         <div class="planet" style="width: 20px; height: 20px; background: var(--neon-blue); top: 0%; left: 50%; --glow-color: var(--neon-blue);"></div>
     </div>
@@ -667,34 +728,53 @@
             </div>
             <div class="card">
                 <div class="card-content">
-                    <span class="card-icon">🎙️</span>
+                    <span class="card-icon stt-icon">🎙️</span>
                     <h2>Chuyển âm thanh thành văn bản AI</h2>
                     <p>Tải lên tệp âm thanh của bạn và sử dụng AI để phiên âm chính xác thành văn bản. Hỗ trợ các định dạng phổ biến như MP3 và WAV.</p>
-                    <a href="stt.html" class="btn">Phiên âm giọng nói</a>
+                    <a href="stt.html" class="btn stt-btn">Phiên âm giọng nói</a>
                 </div>
                 <div class="star-dust" id="dust-4"></div>
             </div>
             <div class="card">
                 <div class="card-content">
-                    <span class="card-icon">🖼️</span>
+                    <span class="card-icon dalle-icon">🖼️</span>
                     <h2>Tạo ảnh AI DALL-E</h2>
                     <p>Tạo ra hình ảnh độc đáo và chất lượng cao từ mô tả văn bản của bạn bằng cách sử dụng các mô hình DALL-E mạnh mẽ của OpenAI.</p>
-                    <a href="dalle.html" class="btn">Tạo ảnh DALL-E</a>
+                    <a href="dalle.html" class="btn dalle-btn">Tạo ảnh DALL-E</a>
                 </div>
                 <div class="star-dust" id="dust-5"></div>
             </div>
             <div class="card">
                 <div class="card-content">
-                    <span class="card-icon">✨</span>
+                    <span class="card-icon imagen-icon">✨</span>
                     <h2>Tạo ảnh AI Imagen</h2>
                     <p>Sử dụng công nghệ Imagen của Google để biến ý tưởng của bạn thành hình ảnh chất lượng cao và chi tiết một cách dễ dàng.</p>
-                    <a href="imagen.html" class="btn">Tạo ảnh Imagen</a>
+                    <a href="imagen.html" class="btn imagen-btn">Tạo ảnh Imagen</a>
                 </div>
                 <div class="star-dust" id="dust-6"></div>
             </div>
+             <div class="card">
+                <div class="card-content">
+                    <span class="card-icon arta-icon">🎨</span>
+                    <h2>Tạo ảnh AI Arta</h2>
+                    <p>Tạo hình ảnh độc đáo với nhiều phong cách nghệ thuật khác nhau bằng cách sử dụng AI Arta.</p>
+                    <a href="image-arta.html" class="btn arta-btn">Tạo ảnh AI Arta</a>
+                </div>
+                <div class="star-dust" id="dust-7"></div>
+            </div>
+            <!-- Thẻ mới cho trang ủng hộ -->
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-icon donate-icon"><i class="fas fa-heart"></i></span>
+                    <h2>Ủng hộ dự án</h2>
+                    <p>Sự ủng hộ của bạn giúp FreeAI duy trì và phát triển, mang đến nhiều công cụ AI miễn phí hơn cho cộng đồng. Mỗi đóng góp đều được trân trọng!</p>
+                    <a href="ungho.html" class="btn donate-btn">Ủng hộ ngay</a>
+                </div>
+                <div class="star-dust" id="dust-8"></div>
+            </div>
         </div>
         <footer>
-            <p>© 2025 <a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;"><i class="fab fa-github" style="color: var(--neon-blue);"></i> AI Miễn phí</a> | Dựa trên AI | <a href="#" target="_blank" style="text-decoration: none; color: inherit;">Mời quản trị viên uống cà phê</a></p>
+            <p>© 2025 <a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;"><i class="fab fa-github" style="color: var(--neon-blue);"></i> AI Miễn phí</a> | ParkJiSung ❤️  | <a href="https://coff.ee/dothesung" target="_blank" style="text-decoration: none; color: inherit;">Buy Me a Coffee</a></p>
         </footer>
     </div>
     <script>
@@ -870,6 +950,10 @@
             createStarDust('dust-4', '#05ffa1'); /* For new STT card */
             createStarDust('dust-5', '#01c8ee'); /* For new DALL-E card */
             createStarDust('dust-6', '#ae5ff8'); /* For new Imagen card */
+            createStarDust('dust-7', '#00FFFF'); /* For new Image Arta card */
+            createStarDust('dust-8', '#FD7B68'); /* For new Donate card */
+
+
             addCircuitEffects();
             addMouseEffect();
 

@@ -617,11 +617,9 @@
         <div class="circuit-line"></div>
         <div class="circuit-line"></div>
     </div>
-    <!-- Hiệu ứng tinh vân -->
     <div class="nebula" style="width: 600px; height: 600px; top: -100px; left: -100px; background: var(--nebula-color1);"></div>
     <div class="nebula" style="width: 500px; height: 500px; bottom: -100px; right: -100px; background: var(--nebula-color2); animation-delay: -15s;"></div>
     <div class="nebula" style="width: 400px; height: 400px; top: 50%; right: -150px; background: var(--nebula-color3); animation-delay: -7s;"></div>
-    <!-- Quỹ đạo hành tinh -->
     <div class="orbit" style="width: 800px; height: 800px; top: 50%; left: 10%; transform: translate(-50%, -50%);">
         <div class="planet" style="width: 20px; height: 20px; background: var(--neon-blue); top: 0%; left: 50%; --glow-color: var(--neon-blue);"></div>
     </div>
@@ -652,8 +650,8 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-icon">🎨</span>
-                    <h2>Tạo ảnh AI</h2>
-                    <p>Biến ý tưởng của bạn thành nghệ thuật thị giác. Chỉ cần nhập mô tả văn bản, AI sẽ tạo ra những hình ảnh tuyệt đẹp cho bạn. Hỗ trợ nhiều phong cách và xuất độ phân giải cao.</p>
+                    <h2>Tạo ảnh AI Flux</h2>
+                    <p>Biến ý tưởng của bạn thành nghệ thuật thị giác với mô hình Flux. Chỉ cần nhập mô tả văn bản, AI sẽ tạo ra những hình ảnh tuyệt đẹp cho bạn. Hỗ trợ nhiều phong cách và xuất độ phân giải cao.</p>
                     <a href="draw.html" class="btn">Tạo ảnh</a>
                 </div>
                 <div class="star-dust" id="dust-2"></div>
@@ -666,6 +664,33 @@
                     <a href="tts.html" class="btn">Chuyển đổi giọng nói</a>
                 </div>
                 <div class="star-dust" id="dust-3"></div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-icon">🎙️</span>
+                    <h2>Chuyển âm thanh thành văn bản AI</h2>
+                    <p>Tải lên tệp âm thanh của bạn và sử dụng AI để phiên âm chính xác thành văn bản. Hỗ trợ các định dạng phổ biến như MP3 và WAV.</p>
+                    <a href="stt.html" class="btn">Phiên âm giọng nói</a>
+                </div>
+                <div class="star-dust" id="dust-4"></div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-icon">🖼️</span>
+                    <h2>Tạo ảnh AI DALL-E</h2>
+                    <p>Tạo ra hình ảnh độc đáo và chất lượng cao từ mô tả văn bản của bạn bằng cách sử dụng các mô hình DALL-E mạnh mẽ của OpenAI.</p>
+                    <a href="dalle.html" class="btn">Tạo ảnh DALL-E</a>
+                </div>
+                <div class="star-dust" id="dust-5"></div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-icon">✨</span>
+                    <h2>Tạo ảnh AI Imagen</h2>
+                    <p>Sử dụng công nghệ Imagen của Google để biến ý tưởng của bạn thành hình ảnh chất lượng cao và chi tiết một cách dễ dàng.</p>
+                    <a href="imagen.html" class="btn">Tạo ảnh Imagen</a>
+                </div>
+                <div class="star-dust" id="dust-6"></div>
             </div>
         </div>
         <footer>
@@ -842,6 +867,9 @@
             createStarDust('dust-1', '#01c8ee');
             createStarDust('dust-2', '#ff2a6d');
             createStarDust('dust-3', '#ae5ff8');
+            createStarDust('dust-4', '#05ffa1'); /* For new STT card */
+            createStarDust('dust-5', '#01c8ee'); /* For new DALL-E card */
+            createStarDust('dust-6', '#ae5ff8'); /* For new Imagen card */
             addCircuitEffects();
             addMouseEffect();
 

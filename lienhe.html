@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <title>Liên hệ FreeAI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+        /* Các biến và kiểu cơ bản được lấy từ styles.css */
+        :root {
+            --primary-color: #4F46E5;
+            --primary-light: #6366F1;
+            --primary-dark: #4338CA;
+            --secondary-color: #8B5CF6;
+            --light-bg: #F8FAFC;
+            --border-color: #E2E8F0;
+            --text-color: #1E293B;
+            --text-light: #64748B;
+            --success-color: #10B981;
+            --error-color: #EF4444;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #4F46E5, #7C3AED);
+            --gradient-secondary: linear-gradient(135deg, #8B5CF6, #C084FC);
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            background-image: radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.03) 0%, transparent 600px), radial-gradient(circle at 20% 90%, rgba(79, 70, 229, 0.03) 0%, transparent 600px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem;
+            flex-grow: 1;
+        }
+
+        h1.main-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8em;
+            text-align: center;
+            margin: 30px 0;
+            color: transparent;
+            background: linear-gradient(45deg, #00f3ff 30%, #a855f7 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            position: relative;
+            padding: 20px;
+            letter-spacing: 2px;
+        }
+
+        h1.main-header::before,
+        h1.main-header::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3d3dff);
+            animation: borderExpand 1.5s ease-out forwards;
+        }
+
+        h1.main-header::before {
+            top: 0;
+            left: 0;
+        }
+
+        h1.main-header::after {
+            bottom: 0;
+            right: 0;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes borderExpand {
+            to {
+                width: 100%;
+            }
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 1rem;
+            font-size: 1.2em;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            font-size: 1rem;
+            color: var(--text-light);
+            word-break: break-all; /* Allow long words to break */
+        }
+
+        .contact-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            background-color: white;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            height: 2.75rem;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: auto;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1.main-header {
+                font-size: 2.2em;
+            }
+            .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header></header> <!-- Sẽ được thay thế bằng header.html -->
+
+    <div class="container">
+        <h1 class="main-header">Liên hệ FreeAI</h1>
+        <p class="description">
+            Chúng tôi luôn sẵn lòng lắng nghe bạn! Vui lòng liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi, phản hồi hoặc đề xuất nào.
+        </p>
+
+        <section>
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-address-book"></i>Thông tin liên hệ</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p><a href="mailto:dothesung@gmail.com">"dothesung@gmail.com</a></p>
+                        <p>Chúng tôi sẽ phản hồi trong vòng 24 giờ làm việc.</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>Điện thoại</h3>
+                        <p>+84 981 228 722 (Hỗ trợ)</p>
+                        <p>Thời gian làm việc: 9:00 - 17:00 (Thứ 2 - Thứ 6)</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Địa chỉ</h3>
+                        <p>Số 123, Đường AI, Quận Sáng Tạo, Thành phố Tri Thức</p>
+                        <p>Việt Nam</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-comment-dots"></i>Gửi tin nhắn cho chúng tôi</h2>
+                <form action="#" method="POST" onsubmit="alert('Tính năng gửi form đang được phát triển. Vui lòng gửi email trực tiếp cho chúng tôi.'); return false;">
+                    <div class="form-group">
+                        <label for="name">Tên của bạn:</label>
+                        <input type="text" id="name" name="name" required placeholder="Nhập tên của bạn">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email của bạn:</label>
+                        <input type="email" id="email" name="email" required placeholder="Nhập địa chỉ email của bạn">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Chủ đề:</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Nhập chủ đề tin nhắn">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Nội dung tin nhắn:</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Nhập nội dung tin nhắn của bạn"></textarea>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Gửi tin nhắn</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer></footer> <!-- Sẽ được thay thế bằng footer.html -->
+
+    <script src="js/main.js"></script>
+</body>
+</html>

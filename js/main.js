@@ -7,3 +7,17 @@
                 navLinks.classList.toggle('active');
             });
         });
+
+function loadHTML(selector, file) {
+  fetch(file)
+    .then(res => res.text())
+    .then(data => {
+      document.querySelector(selector).innerHTML = data;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  loadHTML("header", "header.html");
+  loadHTML("footer", "footer.html");
+});
+

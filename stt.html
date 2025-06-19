@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <title>Chuyển đổi âm thanh thành văn bản AI miễn phí</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css" />
     <style>
         :root {
             --primary-color: #4F46E5;
@@ -664,34 +665,14 @@
                 /* Tiếp tục giảm chiều cao hộp văn bản trên thiết bị di động */
             }
         }
-        footer {
-            text-align: center;
-            padding: 2rem 0 1.5rem;
-            /* Giảm khoảng đệm chân trang */
-            color: var(--text-light);
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        footer i {
-            color: var(--primary-light);
-        }
+        
     </style>
 </head>
 <body>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+          <header></header> <!-- sẽ được thay thế bằng header.html -->
     <div class="container">
-        <header>
             <h1 class="main-header">Chuyển âm thanh thành văn bản AI miễn phí</h1>
             <p class="description">Tải lên tệp âm thanh, sử dụng AI để chuyển đổi thành văn bản chính xác.</p>
-            <br>
-            <a href="index.html" class="sci-fi-btn" style="text-decoration: none;">
-                <span class="glowing-border"></span>
-                <span class="glowing-border"></span>
-                Quay lại trang chủ
-            </a>
-        </header>
 
         <div class="content">
             <section class="input-section">
@@ -748,10 +729,6 @@
                 </div>
             </section>
         </div>
-
-        <footer>
-            <p>© 2025 <a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;">Vipo.Top</a> | Dựa trên AI | <i class="fas fa-sparkles"></i><a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;">Mời quản trị viên một ly cà phê</a> </p>
-        </footer>
     </div>
 
     <!-- Alert Modal -->
@@ -772,6 +749,8 @@
         </div>
     </div>
 
+<footer></footer> <!-- sẽ được thay thế bằng footer.html -->
+<script src="js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const audioFileInput = document.getElementById('audioFile');

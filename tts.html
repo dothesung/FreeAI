@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <title>Chuyển văn bản thành giọng nói AI miễn phí</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css" />
     <style>
         :root {
             --primary-color: #4F46E5;
@@ -77,16 +78,101 @@
         }
 
         h1 {
-            font-size: 2.6rem;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            /* Giảm khoảng cách dưới tiêu đề */
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            letter-spacing: -0.02em;
-        }
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 2.8em;
+                    text-align: center;
+                    margin: 30px 0;
+                    color: transparent;
+                    background: linear-gradient(45deg, #00f3ff 30%, #a855f7 70%);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+                    position: relative;
+                    padding: 20px;
+                    letter-spacing: 2px;
+                }
+
+                h1::before,
+                h1::after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, #3d3dff);
+                    animation: borderExpand 1.5s ease-out forwards;
+                }
+
+                h1::before {
+                    top: 0;
+                    left: 0;
+                }
+
+                h1::after {
+                    bottom: 0;
+                    right: 0;
+                    animation-delay: 0.5s;
+                }
+
+                @keyframes borderExpand {
+                    to {
+                        width: 100%;
+                    }
+                }
+                .sci-fi-btn {
+                    position: relative;
+                    padding: 4px 8px;
+                    font-family: 'Arial', sans-serif;
+                    font-size: 1em;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    color: #00f3ff;
+                    background: #0a0a2e;
+                    border: 2px solid #3d3dff;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    overflow: hidden;
+                    transition: 0.5s;
+                    text-shadow: 0 0 10px #00f3ff;
+                    box-shadow: 0 0 20px rgba(61, 61, 255, 0.3);
+                }
+
+                .sci-fi-btn:hover {
+                    background: #13134e;
+                    box-shadow: 0 0 30px rgba(61, 61, 255, 0.6);
+                    transform: scale(1.05);
+                    color: #ffffff;
+                }
+
+
+                .sci-fi-btn:hover::before {
+                    left: 100%;
+                }
+
+
+                .glowing-border:nth-child(1) {
+                    top: -2px;
+                    left: -2px;
+                    right: -2px;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, #3d3dff);
+                    animation: borderTop 2s linear infinite;
+                }
+
+                @keyframes borderTop {
+                    0% {
+                        left: -2px;
+                    }
+
+                    100% {
+                        left: 100%;
+                    }
+                }
+
+                /* Thêm hoạt ảnh khi nhấp */
+                .sci-fi-btn:active {
+                    transform: scale(0.45);
+                    transition: 0.1s;
+                }
 
         .description {
             font-size: 1.1rem;
@@ -966,126 +1052,81 @@
                 /* Tiếp tục giảm chiều cao hộp văn bản trên thiết bị di động */
             }
         }
+        /* Modal styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            text-align: center;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-buttons .confirm-btn {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .modal-buttons .confirm-btn:hover {
+            background-color: #DC2626;
+        }
+
+        .modal-buttons .cancel-btn {
+            background-color: #ccc;
+            color: var(--text-color);
+        }
+
+        .modal-buttons .cancel-btn:hover {
+            background-color: #bbb;
+        }
     </style>
 </head>
 <body>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="container">
-        <header>
-            <style>
-                h1 {
-                    font-family: 'Orbitron', sans-serif;
-                    font-size: 2.8em;
-                    text-align: center;
-                    margin: 30px 0;
-                    color: transparent;
-                    background: linear-gradient(45deg, #00f3ff 30%, #a855f7 70%);
-                    -webkit-background-clip: text;
-                    background-clip: text;
-                    text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
-                    position: relative;
-                    padding: 20px;
-                    letter-spacing: 2px;
-                }
-
-                h1::before,
-                h1::after {
-                    content: '';
-                    position: absolute;
-                    width: 0;
-                    height: 2px;
-                    background: linear-gradient(90deg, transparent, #3d3dff);
-                    animation: borderExpand 1.5s ease-out forwards;
-                }
-
-                h1::before {
-                    top: 0;
-                    left: 0;
-                }
-
-                h1::after {
-                    bottom: 0;
-                    right: 0;
-                    animation-delay: 0.5s;
-                }
-
-                @keyframes borderExpand {
-                    to {
-                        width: 100%;
-                    }
-                }
-            </style>
-
+          <header></header> <!-- sẽ được thay thế bằng header.html -->
             <h1>Chuyển văn bản thành giọng nói AI miễn phí</h1>
             <p class="description">Nhập văn bản, chọn kiểu giọng nói, và chuyển đổi văn bản thành giọng nói tự nhiên chỉ với một cú nhấp chuột.<br>Hỗ trợ nhiều đặc điểm giọng nói để giúp bạn tạo nội dung âm thanh chuyên nghiệp.</p>
-            <br>
-            <style>
-                .sci-fi-btn {
-                    position: relative;
-                    padding: 4px 8px;
-                    font-family: 'Arial', sans-serif;
-                    font-size: 1em;
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    color: #00f3ff;
-                    background: #0a0a2e;
-                    border: 2px solid #3d3dff;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    overflow: hidden;
-                    transition: 0.5s;
-                    text-shadow: 0 0 10px #00f3ff;
-                    box-shadow: 0 0 20px rgba(61, 61, 255, 0.3);
-                }
 
-                .sci-fi-btn:hover {
-                    background: #13134e;
-                    box-shadow: 0 0 30px rgba(61, 61, 255, 0.6);
-                    transform: scale(1.05);
-                    color: #ffffff;
-                }
-
-
-                .sci-fi-btn:hover::before {
-                    left: 100%;
-                }
-
-
-                .glowing-border:nth-child(1) {
-                    top: -2px;
-                    left: -2px;
-                    right: -2px;
-                    height: 2px;
-                    background: linear-gradient(90deg, transparent, #3d3dff);
-                    animation: borderTop 2s linear infinite;
-                }
-
-                @keyframes borderTop {
-                    0% {
-                        left: -2px;
-                    }
-
-                    100% {
-                        left: 100%;
-                    }
-                }
-
-                /* Thêm hoạt ảnh khi nhấp */
-                .sci-fi-btn:active {
-                    transform: scale(0.45);
-                    transition: 0.1s;
-                }
-            </style>
-            <a href="index.html" class="sci-fi-btn" style="text-decoration: none;">
-                <!-- Thêm viền phát sáng -->
-                <span class="glowing-border"></span>
-                <span class="glowing-border"></span>
-                Quay lại trang chủ
-            </a>
-
-
-        </header>
         <div class="content">
             <section class="text-input-section">
                 <div class="card">
@@ -1451,80 +1492,7 @@
                 </div>
             </section>
         </div>
-        <footer>
-            <p>© 2025 <a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;">Vipo.Top</a> | Dựa trên AI | <i class="fas fa-sparkles"></i><a href="https://vipo.top" target="_blank" style="text-decoration: none; color: inherit;">Mời quản trị viên một ly cà phê</a> </p>
-        </footer>
     </div>
-    <style>
-        /* Modal styles */
-        .modal {
-            display: none;
-            /* Hidden by default */
-            position: fixed;
-            /* Stay in place */
-            z-index: 1;
-            /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%;
-            /* Full width */
-            height: 100%;
-            /* Full height */
-            overflow: auto;
-            /* Enable scroll if needed */
-            background-color: rgba(0, 0, 0, 0.4);
-            /* Black w/ opacity */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 400px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            text-align: center;
-        }
-
-        .modal-buttons {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .modal-buttons button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-
-        .modal-buttons .confirm-btn {
-            background-color: var(--error-color);
-            color: white;
-        }
-
-        .modal-buttons .confirm-btn:hover {
-            background-color: #DC2626;
-        }
-
-        .modal-buttons .cancel-btn {
-            background-color: #ccc;
-            color: var(--text-color);
-        }
-
-        .modal-buttons .cancel-btn:hover {
-            background-color: #bbb;
-        }
-    </style>
     <div id="confirmationModal" class="modal" style="display: none;">
         <div class="modal-content">
             <p id="modalMessage"></p>
@@ -1534,6 +1502,10 @@
             </div>
         </div>
     </div>
+        <!-- ADDED: Footer Section -->
+<footer></footer> <!-- sẽ được thay thế bằng footer.html -->
+<script src="js/main.js"></script>
+
 <script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
     const textInput = document.getElementById('textInput');
     const generateBtn = document.getElementById('generateBtn');

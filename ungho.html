@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <title>Ủng hộ FreeAI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+        /* Các biến và kiểu cơ bản được lấy từ styles.css */
+        :root {
+            --primary-color: #4F46E5;
+            --primary-light: #6366F1;
+            --primary-dark: #4338CA;
+            --secondary-color: #8B5CF6;
+            --light-bg: #F8FAFC;
+            --border-color: #E2E8F0;
+            --text-color: #1E293B;
+            --text-light: #64748B;
+            --success-color: #10B981;
+            --error-color: #EF4444;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #4F46E5, #7C3AED);
+            --gradient-secondary: linear-gradient(135deg, #8B5CF6, #C084FC);
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            background-image: radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.03) 0%, transparent 600px), radial-gradient(circle at 20% 90%, rgba(79, 70, 229, 0.03) 0%, transparent 600px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem;
+            flex-grow: 1;
+        }
+
+        h1.main-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8em;
+            text-align: center;
+            margin: 30px 0;
+            color: transparent;
+            background: linear-gradient(45deg, #00f3ff 30%, #a855f7 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            position: relative;
+            padding: 20px;
+            letter-spacing: 2px;
+        }
+
+        h1.main-header::before,
+        h1.main-header::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3d3dff);
+            animation: borderExpand 1.5s ease-out forwards;
+        }
+
+        h1.main-header::before {
+            top: 0;
+            left: 0;
+        }
+
+        h1.main-header::after {
+            bottom: 0;
+            right: 0;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes borderExpand {
+            to {
+                width: 100%;
+            }
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 1rem;
+            font-size: 1.2em;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .donation-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .donation-item {
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .donation-item i.fab, .donation-item i.fas {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .donation-item.momo i { color: #AF0069; }
+        .donation-item.vpbank i { color: #00569B; }
+        .donation-item.paypal i { color: #003087; }
+        .donation-item.crypto i { color: #FF9900; }
+
+        .donation-item h3 {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .donation-item p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .donation-item strong {
+            color: var(--primary-dark);
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            border: 1px solid var(--border-color);
+            margin: 1rem auto;
+            display: block; /* Ensure it's a block element */
+        }
+
+        .copy-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(79, 70, 229, 0.2);
+        }
+
+        .copy-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        .copy-button i {
+            margin-right: 0.5rem;
+        }
+
+        .paypal-button {
+            background-color: #003087;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 48, 135, 0.3);
+        }
+        .paypal-button:hover {
+            background-color: #001f5c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 48, 135, 0.4);
+        }
+        .paypal-button i {
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1.main-header {
+                font-size: 2.2em;
+            }
+            .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+            .donation-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header></header> <!-- Sẽ được thay thế bằng header.html -->
+
+    <div class="container">
+        <h1 class="main-header">Ủng hộ FreeAI</h1>
+        <p class="description">
+            Sự ủng hộ của bạn là động lực to lớn giúp FreeAI duy trì và phát triển các công cụ AI miễn phí, mang lại giá trị cho cộng đồng. Mỗi đóng góp, dù nhỏ, đều vô cùng quý giá!
+        </p>
+
+        <section>
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-hand-holding-heart"></i>Chọn hình thức ủng hộ</h2>
+                <div class="donation-methods">
+                    <div class="donation-item momo">
+                        <i class="fas fa-wallet"></i>
+                        <h3>Ví điện tử Momo</h3>
+                        <p>Quét mã QR hoặc nhập số điện thoại để chuyển tiền.</p>
+                        <img src="https://placehold.co/150x150/AF0069/ffffff?text=Momo+QR" alt="Momo QR Code" class="qr-code">
+                        <p>Số điện thoại: <strong>0987654321</strong></p>
+                        <p>Chủ tài khoản: <strong>NGUYEN VAN A</strong></p>
+                        <button class="copy-button" data-copy="0987654321">
+                            <i class="fas fa-copy"></i> Sao chép số điện thoại
+                        </button>
+                    </div>
+
+                    <div class="donation-item vpbank">
+                        <i class="fas fa-university"></i>
+                        <h3>Ngân hàng VPBank</h3>
+                        <p>Chuyển khoản qua tài khoản ngân hàng VPBank.</p>
+                        <img src="https://placehold.co/150x150/00569B/ffffff?text=VPBank+QR" alt="VPBank QR Code" class="qr-code">
+                        <p>Số tài khoản: <strong>1234567890</strong></p>
+                        <p>Tên ngân hàng: <strong>Ngân hàng TMCP Việt Nam Thịnh Vượng (VPBank)</strong></p>
+                        <p>Chủ tài khoản: <strong>NGUYEN VAN A</strong></p>
+                        <p>Nội dung chuyển khoản: <br><strong>"Ung ho FreeAI [Tên của bạn]"</strong></p>
+                        <button class="copy-button" data-copy="1234567890">
+                            <i class="fas fa-copy"></i> Sao chép số tài khoản
+                        </button>
+                    </div>
+
+                    <div class="donation-item paypal">
+                        <i class="fab fa-paypal"></i>
+                        <h3>Ủng hộ qua PayPal</h3>
+                        <p>Ủng hộ một cách nhanh chóng và an toàn qua PayPal.</p>
+                        <p>Email PayPal: <strong>donate@freeai.com</strong></p>
+                        <a href="https://www.paypal.com/paypalme/yourpaypalid" target="_blank" class="paypal-button">
+                            <i class="fab fa-paypal"></i> Ủng hộ qua PayPal
+                        </a>
+                    </div>
+                    <!-- Bạn có thể thêm các hình thức khác như Crypto, Patreon nếu muốn -->
+                    <!--
+                    <div class="donation-item crypto">
+                        <i class="fas fa-coins"></i>
+                        <h3>Tiền điện tử (Crypto)</h3>
+                        <p>Ủng hộ bằng Bitcoin (BTC) hoặc Ethereum (ETH).</p>
+                        <p>Địa chỉ BTC: <strong>bc1q...</strong></p>
+                        <p>Địa chỉ ETH: <strong>0x...</strong></p>
+                        <button class="copy-button" data-copy="bc1q...">
+                            <i class="fas fa-copy"></i> Sao chép địa chỉ BTC
+                        </button>
+                        <button class="copy-button" data-copy="0x...">
+                            <i class="fas fa-copy"></i> Sao chép địa chỉ ETH
+                        </button>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-heart"></i>Lời cảm ơn chân thành</h2>
+                <p>
+                    Mọi sự ủng hộ của bạn đều được sử dụng trực tiếp vào việc duy trì máy chủ, nghiên cứu các mô hình AI mới và cải thiện chất lượng dịch vụ của FreeAI.
+                    Chúng tôi vô cùng biết ơn sự đóng góp của bạn đã giúp FreeAI tiếp tục sứ mệnh của mình.
+                </p>
+                <p style="text-align: center; margin-top: 1.5rem; font-weight: 600;">
+                    Xin chân thành cảm ơn!
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <footer></footer> <!-- Sẽ được thay thế bằng footer.html -->
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyButtons = document.querySelectorAll('.copy-button');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const textToCopy = this.getAttribute('data-copy');
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            this.innerHTML = '<i class="fas fa-check"></i> Đã sao chép!';
+                            setTimeout(() => {
+                                this.innerHTML = '<i class="fas fa-copy"></i> Sao chép';
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('Không thể sao chép văn bản:', err);
+                            // Fallback for older browsers or specific environments
+                            const textarea = document.createElement('textarea');
+                            textarea.value = textToCopy;
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            try {
+                                document.execCommand('copy');
+                                this.innerHTML = '<i class="fas fa-check"></i> Đã sao chép (fallback)!';
+                                setTimeout(() => {
+                                    this.innerHTML = '<i class="fas fa-copy"></i> Sao chép';
+                                }, 2000);
+                            } catch (execErr) {
+                                alert('Sao chép thất bại: ' + execErr.message); // Sử dụng alert tạm thời
+                            }
+                            document.body.removeChild(textarea);
+                        });
+                    } else {
+                        // Fallback for older browsers
+                        const textarea = document.createElement('textarea');
+                        textarea.value = textToCopy;
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        try {
+                            document.execCommand('copy');
+                            this.innerHTML = '<i class="fas fa-check"></i> Đã sao chép (fallback)!';
+                            setTimeout(() => {
+                                this.innerHTML = '<i class="fas fa-copy"></i> Sao chép';
+                            }, 2000);
+                        } catch (execErr) {
+                            alert('Sao chép thất bại: ' + execErr.message); // Sử dụng alert tạm thời
+                        }
+                        document.body.removeChild(textarea);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

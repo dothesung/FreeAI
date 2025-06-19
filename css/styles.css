@@ -312,3 +312,139 @@
         footer i {
             color: var(--primary-light);
         }
+
+            /* CSS cho menu thả xuống */
+            .dropdown {
+                position: relative;
+            }
+
+            .dropdown-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                cursor: pointer;
+                padding: 0.5rem 0.8rem;
+                border-radius: var(--border-radius);
+                transition: var(--transition);
+                position: relative;
+                overflow: hidden;
+                text-decoration: none;
+                color: var(--text-color);
+                font-weight: 500;
+            }
+
+            .dropdown-toggle::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: var(--gradient-primary);
+                opacity: 0;
+                transition: all 0.3s ease-out;
+                z-index: -1;
+                border-radius: var(--border-radius);
+            }
+
+            .dropdown-toggle:hover {
+                color: white;
+                transform: translateY(-2px);
+            }
+
+            .dropdown-toggle:hover::before {
+                left: 0;
+                opacity: 1;
+            }
+
+            .dropdown-toggle .dropdown-arrow {
+                margin-left: 5px;
+                transition: transform 0.3s ease;
+                font-size: 0.8em; /* Kích thước nhỏ hơn cho mũi tên */
+            }
+
+            .dropdown:hover .dropdown-toggle .dropdown-arrow {
+                transform: rotate(180deg);
+            }
+
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                background-color: var(--card-bg);
+                min-width: 180px;
+                box-shadow: var(--box-shadow);
+                border-radius: var(--border-radius);
+                z-index: 100; /* Đảm bảo nằm trên các phần tử khác */
+                list-style: none;
+                padding: 0.5rem 0;
+                border: 1px solid var(--border-color);
+                top: calc(100% + 5px); /* Khoảng cách từ toggle */
+                left: 0;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .dropdown:hover .dropdown-menu {
+                display: block;
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .dropdown-menu li a {
+                color: var(--text-color);
+                padding: 0.75rem 1.5rem;
+                text-decoration: none;
+                display: block;
+                white-space: nowrap; /* Ngăn văn bản xuống dòng */
+                transition: background-color 0.2s ease, color 0.2s ease;
+                border-radius: var(--border-radius); /* Để có hiệu ứng nền tròn đẹp mắt */
+            }
+
+            .dropdown-menu li a:hover {
+                background-color: var(--light-bg); /* Nền nhẹ khi hover */
+                color: var(--primary-color);
+            }
+
+            /* Responsive cho Navigation Bar với Dropdown */
+            @media (max-width: 768px) {
+                .nav-links {
+                    align-items: flex-start; /* Để các mục con không bị căn giữa */
+                }
+                .nav-links.active {
+                    /* Khi menu mobile active, các dropdown nên hiển thị dưới dạng danh sách */
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start; /* Để các mục con không bị căn giữa */
+                }
+
+                .dropdown-toggle {
+                    width: 100%; /* Đảm bảo nút toggle chiếm hết chiều rộng trên mobile */
+                    justify-content: flex-start; /* Căn trái văn bản */
+                }
+                .dropdown-toggle .dropdown-arrow {
+                    margin-left: auto; /* Đẩy mũi tên sang phải */
+                }
+
+                .dropdown-menu {
+                    position: static; /* Trên mobile, menu thả xuống không cần absolute positioning */
+                    width: 100%;
+                    box-shadow: none;
+                    border: none;
+                    padding: 0;
+                    background-color: transparent; /* Nền trong suốt trên mobile */
+                    border-radius: 0;
+                    opacity: 1; /* Luôn hiển thị trên mobile khi cha hover */
+                    transform: translateY(0);
+                }
+
+                .dropdown-menu li a {
+                    padding-left: 2.5rem; /* Thụt lề các mục con */
+                    border-left: 3px solid transparent; /* Tạo đường viền nhỏ cho mục con */
+                }
+                .dropdown-menu li a:hover {
+                    background-color: rgba(99, 102, 241, 0.05); /* Hiệu ứng hover nhẹ hơn */
+                    border-left-color: var(--primary-light);
+                }
+            }
